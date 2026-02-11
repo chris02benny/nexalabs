@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Responsiveness Test - NEXA Future Ready Lab</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #00bcd4;
+            border-bottom: 3px solid #00bcd4;
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: #333;
+            margin-top: 30px;
+        }
+
+        .test-section {
+            background: #f9f9f9;
+            border-left: 4px solid #00bcd4;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .viewport-sizes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .viewport-card {
+            background: linear-gradient(135deg, #00bcd4 0%, #9c27b0 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .viewport-card h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+
+        .viewport-card p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #00bcd4 0%, #9c27b0 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin: 10px 5px;
+            font-weight: 600;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 188, 212, 0.3);
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📱 Mobile Responsiveness Test Guide</h1>
+
+        <p>This guide will help you test the mobile responsiveness improvements made to the NEXA Future Ready Lab
+            website.</p>
+
+        <h2>🎯 What Was Changed</h2>
+
+        <div class="test-section">
+            <h3>Navbar Improvements</h3>
+            <ul class="checklist">
+                <li>Compact navbar with reduced padding on mobile</li>
+                <li>Smaller brand text for better fit</li>
+                <li>Hamburger menu that toggles navigation links</li>
+                <li>Improved dropdown menu positioning</li>
+                <li>Better touch targets for mobile users</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h3>Hero Section Improvements</h3>
+            <ul class="checklist">
+                <li>Optimized typography for mobile screens</li>
+                <li>Responsive heading sizes (1.75rem on tablet, 1.5rem on small phones)</li>
+                <li>Full-width buttons for easy tapping</li>
+                <li>Hidden floating elements to reduce clutter</li>
+                <li>Proper image scaling (max-width: 100%)</li>
+                <li>Adjusted spacing and padding</li>
+            </ul>
+        </div>
+
+        <h2>📐 Test These Viewport Sizes</h2>
+
+        <div class="viewport-sizes">
+            <div class="viewport-card">
+                <h3>iPhone SE</h3>
+                <p><strong>375px × 667px</strong></p>
+                <p>Small mobile device</p>
+            </div>
+
+            <div class="viewport-card">
+                <h3>iPhone 12 Pro</h3>
+                <p><strong>390px × 844px</strong></p>
+                <p>Standard mobile device</p>
+            </div>
+
+            <div class="viewport-card">
+                <h3>Samsung Galaxy S20</h3>
+                <p><strong>360px × 800px</strong></p>
+                <p>Android device</p>
+            </div>
+
+            <div class="viewport-card">
+                <h3>iPad</h3>
+                <p><strong>768px × 1024px</strong></p>
+                <p>Tablet device</p>
+            </div>
+        </div>
+
+        <h2>🧪 How to Test</h2>
+
+        <div class="test-section">
+            <h3>Step 1: Open Developer Tools</h3>
+            <p>Press <span class="highlight">F12</span> or right-click and select "Inspect"</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Step 2: Toggle Device Toolbar</h3>
+            <p>Press <span class="highlight">Ctrl + Shift + M</span> (Windows) or <span class="highlight">Cmd + Shift +
+                    M</span> (Mac)</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Step 3: Select Device</h3>
+            <p>Choose a device from the dropdown or set custom dimensions</p>
+        </div>
+
+        <div class="test-section">
+            <h3>Step 4: Test Interactions</h3>
+            <ul class="checklist">
+                <li>Click the hamburger menu icon</li>
+                <li>Verify menu opens and closes</li>
+                <li>Check that all text is readable</li>
+                <li>Ensure buttons are easy to tap</li>
+                <li>Scroll through the page</li>
+                <li>Verify no horizontal scrolling</li>
+            </ul>
+        </div>
+
+        <h2>✅ Verification Checklist</h2>
+
+        <div class="test-section">
+            <ul class="checklist">
+                <li>Navbar is compact and fits on one line</li>
+                <li>Hamburger menu icon is visible on mobile</li>
+                <li>Menu dropdown appears when clicking hamburger</li>
+                <li>Hero heading is readable (not too large or small)</li>
+                <li>Hero text is properly sized</li>
+                <li>Buttons are full-width on mobile</li>
+                <li>Robot image scales properly</li>
+                <li>No content is cut off</li>
+                <li>No horizontal scrolling occurs</li>
+                <li>All sections are properly spaced</li>
+            </ul>
+        </div>
+
+        <h2>🔧 Responsive Breakpoints</h2>
+
+        <div class="code-block">
+            /* Desktop (Default) */
+            769px and above - Full navbar with all links visible
+
+            /* Tablet/Mobile */
+            768px and below - Compact navbar with hamburger menu
+
+            /* Small Mobile */
+            480px and below - Extra compact layout with smaller text
+        </div>
+
+        <h2>🚀 Quick Access</h2>
+
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="index.php" class="button">Open Homepage</a>
+            <a href="programs.php" class="button">View Programs</a>
+        </div>
+
+        <h2>📝 Files Modified</h2>
+
+        <div class="test-section">
+            <ul>
+                <li><strong>assets/css/style.css</strong> - Added mobile-specific styles</li>
+                <li><strong>includes/header.php</strong> - Adjusted main content padding</li>
+                <li><strong>assets/js/main.js</strong> - Mobile menu toggle (already implemented)</li>
+            </ul>
+        </div>
+
+        <h2>📄 Documentation</h2>
+
+        <p>For detailed information about all changes, see: <strong>MOBILE_RESPONSIVENESS_CHANGES.md</strong></p>
+
+        <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; margin-top: 30px;">
+            <h3 style="margin-top: 0; color: #1976d2;">💡 Pro Tip</h3>
+            <p>Test on actual mobile devices if possible! Emulation is great, but real device testing ensures the best
+                user experience.</p>
+        </div>
+    </div>
+</body>
+
+</html>
