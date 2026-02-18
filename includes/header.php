@@ -30,7 +30,7 @@ $current_page = basename($_SERVER['PHP_SELF'], '.php');
   <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="<?php echo $current_page === 'index' ? 'page-hero-dark' : ''; ?>">
   <!-- Navigation -->
   <nav class="navbar">
     <div class="navbar-container">

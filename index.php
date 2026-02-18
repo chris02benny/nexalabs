@@ -1,129 +1,128 @@
 <?php include 'includes/header.php'; ?>
 
-<!-- Hero Section -->
-<section class="hero-section">
-  <!-- Background Decorative Elements -->
-  <div class="hero-bg-pattern"></div>
-  <div class="hero-gradient-orb hero-orb-1"></div>
-  <div class="hero-gradient-orb hero-orb-2"></div>
-  <div class="hero-gradient-orb hero-orb-3"></div>
-  
-  <div class="section-container">
-    <div class="row align-items-center g-5">
-      <!-- Content -->
-      <div class="col-lg-6 mb-5 mb-lg-0 slide-in-left">
-        <!-- Badge -->
-        <div class="hero-badge mb-4">
-          <span class="badge-text">Future-Ready Education</span>
-          <i class="bi bi-arrow-right ms-2"></i>
+<!-- Hero Section - DataCore-style 3D Glassmorphism -->
+<section class="hero-3d">
+  <!-- Dark background with gradient glow -->
+  <div class="hero-3d-bg">
+    <div class="hero-3d-particles" id="heroParticles"></div>
+    <div class="hero-3d-glow hero-3d-glow-1"></div>
+    <div class="hero-3d-glow hero-3d-glow-2"></div>
+    <div class="hero-3d-glow hero-3d-glow-3"></div>
+    <div class="hero-3d-grid"></div>
+  </div>
+
+  <div class="hero-3d-content">
+    <!-- Centered hero text -->
+    <div class="hero-3d-headline">
+      <h1 class="hero-3d-title">Building Skills for <span class="hero-3d-gradient">Tomorrow's World</span></h1>
+      <p class="hero-3d-subtitle">NEXA Future Ready Lab is a next-generation learning ecosystem that prepares students, educators, and professionals for emerging technologies through hands-on, industry-aligned learning.</p>
+      <div class="hero-3d-cta-wrap">
+        <a href="programs" class="hero-3d-cta">Explore Programs <i class="bi bi-arrow-right"></i></a>
+        <a href="register" class="hero-3d-cta hero-3d-cta-outline">Register Now</a>
+      </div>
+    </div>
+
+    <!-- Left column panels -->
+    <div class="hero-3d-panel hero-3d-panel-code">
+      <div class="hero-3d-panel-header">// Type some code →</div>
+      <div class="hero-3d-code">
+        <span class="code-line"><span class="code-num">1</span><span class="code-keyword">const</span> lab = <span class="code-string">"NEXA"</span>;</span>
+        <span class="code-line"><span class="code-num">2</span><span class="code-keyword">await</span> lab.<span class="code-fn">learn</span>(<span class="code-string">"XR"</span>, <span class="code-string">"AI"</span>);</span>
+        <span class="code-line"><span class="code-num">3</span><span class="code-comment">// Future-ready skills</span></span>
+      </div>
+    </div>
+
+    <div class="hero-3d-panel hero-3d-panel-logs">
+      <div class="hero-3d-panel-header">Database Logs</div>
+      <div class="hero-3d-logs">
+        <div class="log-line"><span class="log-time">14:2:09</span> - <span class="log-info">INFO</span></div>
+        <div class="log-line"><span class="log-time">14:2:09</span> - <span class="log-query">QUERY DATA</span></div>
+        <div class="log-line"><span class="log-time">14:2:10</span> - <span class="log-info">CONNECTED</span></div>
+      </div>
+      <div class="hero-3d-scan-beam"></div>
+    </div>
+
+    <!-- Floating glass panels - center/right -->
+    <div class="hero-3d-panel hero-3d-panel-pipeline">
+      <div class="hero-3d-panel-header">Learning Pipeline</div>
+      <div class="hero-3d-flow">
+        <div class="flow-box">Ingest Sources</div>
+        <div class="flow-box">Transform Data</div>
+        <div class="flow-row">
+          <div class="flow-box">Orchestrate</div>
+          <div class="flow-box">Execute</div>
         </div>
-        
-        <h1 class="hero-title mb-4">
-          Building Skills for <span class="gradient-text">Tomorrow's World</span>
-        </h1>
-        
-        <!-- Hero Image (Mobile only - appears after title) -->
-        <div class="hero-image-mobile d-lg-none">
-          <div class="hero-visual-container">
-            <div class="hero-main-image">
-              <div class="hero-image-glow"></div>
-              <img src="assets/images/hero-robot.png" alt="Nexalabs Robot" class="img-fluid hero-robot-img">
-            </div>
-          </div>
-        </div>
-        
-        <p class="hero-tagline mb-4">
-          <i class="bi bi-shield-check me-2"></i>
-          Powered by AJCE × Unique World Robotics (India & UAE)
-        </p>
-        
-        <p class="hero-description mb-4">
-          The NEXA Future Ready Lab is a next-generation learning and innovation ecosystem designed to prepare students, educators, and professionals for emerging technologies through hands-on, industry-aligned learning.
-        </p>
-        
-        <p class="hero-description mb-5">
-          Our programs span schools, colleges, and advanced learners, combining Extended Reality (XR), Artificial Intelligence, Robotics, Embedded Systems, and Digital Technologies into a unified, future-ready platform.
-        </p>
-        
-        <!-- CTA Buttons -->
-        <div class="hero-cta d-flex flex-column flex-sm-row gap-3 mb-5">
-          <a href="programs" class="btn-hero-primary">
-            <span>Explore Programs</span>
-            <i class="bi bi-arrow-right ms-2"></i>
-          </a>
-          <a href="register" class="btn-hero-secondary">
-            <span>Register Now</span>
-            <i class="bi bi-rocket-takeoff ms-2"></i>
-          </a>
-        </div>
-        
-        <!-- Stats Row -->
-        <div class="hero-stats d-flex flex-wrap gap-4">
-          <div class="hero-stat-item">
-            <div class="stat-value">5,000+</div>
-            <div class="stat-label">Students</div>
-          </div>
-          <div class="hero-stat-item">
-            <div class="stat-value">25+</div>
-            <div class="stat-label">Programs</div>
-          </div>
-          <div class="hero-stat-item">
-            <div class="stat-value">50+</div>
-            <div class="stat-label">Mentors</div>
-          </div>
+        <a href="programs" class="flow-cta">Output via API</a>
+      </div>
+    </div>
+
+    <div class="hero-3d-panel hero-3d-panel-compliance">
+      <div class="hero-3d-panel-header">Progress Tracking</div>
+      <div class="hero-3d-progress">
+        <div class="progress-row"><span>Overdue</span><span>3%</span></div>
+        <div class="progress-row"><span>Pending</span><span>14%</span></div>
+        <div class="progress-row"><span>Completed</span><span>86%</span></div>
+      </div>
+    </div>
+
+    <!-- 3D AI/Data sphere panel -->
+    <div class="hero-3d-panel hero-3d-panel-sphere">
+      <div class="hero-3d-panel-header">AI & Data Layer</div>
+      <div class="hero-3d-sphere-wrap">
+        <div class="hero-3d-sphere">
+          <div class="sphere-inner"></div>
+          <div class="sphere-ring"></div>
+          <div class="sphere-ring sphere-ring-2"></div>
+          <div class="sphere-binary"></div>
         </div>
       </div>
-      
-      <!-- Hero Images & Visuals (Desktop only) -->
-      <div class="col-lg-6 scale-in d-none d-lg-block">
-        <div class="hero-visual-container">
-          <!-- Main Robot Image -->
-          <div class="hero-main-image">
-            <div class="hero-image-glow"></div>
-            <img src="assets/images/hero-robot.png" alt="Nexalabs Robot" class="img-fluid hero-robot-img">
-          </div>
-          
-          <!-- Floating Tech Icons -->
-          <div class="hero-floating-icon hero-icon-1">
-            <div class="icon-wrapper">
-              <i class="bi bi-cpu-fill"></i>
-            </div>
-            <span class="icon-label">AI & ML</span>
-          </div>
-          
-          <div class="hero-floating-icon hero-icon-2">
-            <div class="icon-wrapper">
-              <i class="bi bi-robot"></i>
-            </div>
-            <span class="icon-label">Robotics</span>
-          </div>
-          
-          <div class="hero-floating-icon hero-icon-3">
-            <div class="icon-wrapper">
-              <i class="bi bi-vr"></i>
-            </div>
-            <span class="icon-label">XR/VR</span>
-          </div>
-          
-          <div class="hero-floating-icon hero-icon-4">
-            <div class="icon-wrapper">
-              <i class="bi bi-code-slash"></i>
-            </div>
-            <span class="icon-label">Coding</span>
-          </div>
-          
-          <!-- Decorative Grid Pattern -->
-          <div class="hero-grid-pattern"></div>
-        </div>
+    </div>
+
+    <!-- Engagement / Stats meter -->
+    <div class="hero-3d-panel hero-3d-panel-engagement">
+      <div class="hero-3d-engagement-value">82</div>
+      <div class="hero-3d-engagement-title">Engagement</div>
+      <div class="hero-3d-bars">
+        <div class="eng-bar" style="--w: 70%"></div>
+        <div class="eng-bar" style="--w: 85%"></div>
+        <div class="eng-bar" style="--w: 60%"></div>
+        <div class="eng-bar" style="--w: 90%"></div>
       </div>
+    </div>
+
+    <!-- Score dial -->
+    <div class="hero-3d-panel hero-3d-panel-score">
+      <div class="hero-3d-score-value">72</div>
+      <div class="hero-3d-score-label">score</div>
+      <svg class="hero-3d-score-ring" viewBox="0 0 100 100">
+        <defs>
+          <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#3b82f6"/>
+            <stop offset="100%" style="stop-color:#6366f1"/>
+          </linearGradient>
+        </defs>
+        <circle class="score-bg" cx="50" cy="50" r="45"/>
+        <circle class="score-fill" cx="50" cy="50" r="45" style="stroke-dasharray: 212 283; stroke-dashoffset: 71; stroke: url(#scoreGradient)"/>
+      </svg>
+    </div>
+
+    <!-- Floating 3D icons -->
+    <div class="hero-3d-float-icon hero-3d-icon-cloud"><i class="bi bi-cloud"></i></div>
+    <div class="hero-3d-float-icon hero-3d-icon-db"><i class="bi bi-database"></i></div>
+    <div class="hero-3d-float-icon hero-3d-icon-gear"><i class="bi bi-gear"></i></div>
+    <div class="hero-3d-float-icon hero-3d-icon-code"><i class="bi bi-code-slash"></i></div>
+    <div class="hero-3d-float-icon hero-3d-icon-globe"><i class="bi bi-globe"></i></div>
+
+    <!-- Stats bar at bottom -->
+    <div class="hero-3d-stats">
+      <div class="hero-3d-stat"><span class="hero-3d-stat-val">5,000+</span> STUDENTS</div>
+      <div class="hero-3d-stat"><span class="hero-3d-stat-val">25+</span> PROGRAMS</div>
+      <div class="hero-3d-stat"><span class="hero-3d-stat-val">50+</span> MENTORS</div>
     </div>
   </div>
-  
-  <!-- Scroll Indicator -->
-  <div class="scroll-indicator">
-    <div class="scroll-indicator-box">
-      <div class="scroll-indicator-dot"></div>
-    </div>
+
+  <div class="hero-3d-scroll">
+    <div class="hero-3d-scroll-dot"></div>
   </div>
 </section>
 
