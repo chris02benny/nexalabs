@@ -197,7 +197,7 @@
             <p class="program-outcome"><?php echo $program['outcome']; ?></p>
           </div>
           
-          <a href="register.php" class="btn-primary w-100 mt-auto">Register Now</a>
+          <a href="register" class="btn-primary w-100 mt-auto">Register Now</a>
         </div>
       </div>
       <?php endforeach; ?>
@@ -205,26 +205,5 @@
   </div>
 </section>
 
-<!-- CTA Section -->
-<section class="py-5 position-relative" style="padding: 5rem 0;">
-  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, hsla(250, 70%, 55%, 0.05) 0%, hsla(270, 80%, 60%, 0.05) 100%); z-index: -1;"></div>
-  
-  <div class="section-container">
-    <div class="glass-card no-hover p-5 text-center" data-animate>
-      <h2 class="display-5 fw-bold mb-3">Ready to Start Your Learning Journey?</h2>
-      <p class="text-muted fs-5 mb-4 mx-auto" style="max-width: 700px;">
-        Join our community of innovators and take the first step towards mastering future-ready technologies.
-      </p>
-      <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
-        <a href="register.php" class="btn-primary">
-          Register Now <i class="bi bi-arrow-right ms-2"></i>
-        </a>
-        <a href="enquiry.php" class="btn-outline">
-          Contact Us
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
 
 <?php include 'includes/footer.php'; ?>

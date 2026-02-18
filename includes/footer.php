@@ -16,11 +16,11 @@
         <div class="col-md-4 mb-4">
           <h6 class="mb-3" style="font-family: 'Space Grotesk', sans-serif;">Quick Links</h6>
           <ul class="footer-links">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="programs.php">Programs</a></li>
-            <li><a href="about.php">About Us</a></li>
-            <li><a href="register.php">Register</a></li>
-            <li><a href="enquiry.php">Contact</a></li>
+            <li><a href="index">Home</a></li>
+            <li><a href="programs">Programs</a></li>
+            <li><a href="about">About Us</a></li>
+            <li><a href="register">Register</a></li>
+            <li><a href="enquiry">Contact</a></li>
           </ul>
         </div>
         
@@ -51,6 +51,9 @@
   
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Swiper JS -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   
   <!-- Custom JS -->
   <script src="assets/js/main.js"></script>

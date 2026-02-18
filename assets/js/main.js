@@ -8,12 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (navbarToggler && navbarNav) {
         navbarToggler.addEventListener('click', function () {
             navbarNav.classList.toggle('show');
+            navbarToggler.classList.toggle('active');
         });
 
         // Close menu when clicking outside
         document.addEventListener('click', function (event) {
             if (!event.target.closest('.navbar')) {
                 navbarNav.classList.remove('show');
+                navbarToggler.classList.remove('active');
             }
         });
     }
@@ -106,8 +108,82 @@ function initSpotlightCards() {
     });
 }
 
+// Swiper Initialization
+function initLearnerGroupsSwiper() {
+    if (document.querySelector('.learnerGroupsSwiper')) {
+        new Swiper('.learnerGroupsSwiper', {
+            slidesPerView: 1,
+            spaceBetween: 40,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.learner-groups-next',
+                prevEl: '.learner-groups-prev',
+            },
+            breakpoints: {
+                640: {
+                    slidesPerView: 1,
+                },
+                768: {
+                    slidesPerView: 2,
+                },
+                1024: {
+                    slidesPerView: 3,
+                },
+            }
+        });
+    }
+}
+
 // Initialize on page load
 window.addEventListener('load', function () {
     initFloatingElements();
     initSpotlightCards();
+    initLearnerGroupsSwiper();
 });
+
+// Toggle Program Details
+function toggleProgramDetails(index, event) {
+    const content = document.getElementById(`program-${index}`);
+    const button = event.currentTarget;
+    const btnText = button.querySelector('.details-btn-text');
+    const btnIcon = button.querySelector('.details-btn-icon');
+
+    const isExpanding = !content.classList.contains('active');
+
+    // Close all other open program details
+    document.querySelectorAll('.program-details-content.active').forEach(otherContent => {
+        if (otherContent !== content) {
+            otherContent.classList.remove('active');
+            // Update the button of the other closed card
+            const otherCard = otherContent.closest('.program-detail-card');
+            const otherBtnText = otherCard.querySelector('.details-btn-text');
+            const otherBtnIcon = otherCard.querySelector('.details-btn-icon');
+            if (otherBtnText) otherBtnText.textContent = 'Show Details';
+            if (otherBtnIcon) {
+                otherBtnIcon.classList.remove('bi-chevron-up');
+                otherBtnIcon.classList.add('bi-chevron-down');
+            }
+        }
+    });
+
+    // Toggle the clicked one
+    content.classList.toggle('active');
+
+    if (content.classList.contains('active')) {
+        btnText.textContent = 'Hide Details';
+        btnIcon.classList.remove('bi-chevron-down');
+        btnIcon.classList.add('bi-chevron-up');
+    } else {
+        btnText.textContent = 'Show Details';
+        btnIcon.classList.remove('bi-chevron-up');
+        btnIcon.classList.add('bi-chevron-down');
+    }
+}

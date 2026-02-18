@@ -18,7 +18,7 @@ include 'includes/header.php';
       <p class="text-muted mb-4">
         Thank you for registering. We'll contact you shortly with program details.
       </p>
-      <a href="register.php" class="btn-outline">Register for Another Program</a>
+      <a href="register" class="btn-outline">Register for Another Program</a>
     </div>
   </div>
 </section>

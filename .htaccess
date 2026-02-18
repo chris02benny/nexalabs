@@ -1,0 +1,16 @@
+# Enable URL Rewriting
+RewriteEngine On
+
+# Redirect .php extensions to clean URLs
+RewriteCond %{THE_REQUEST} ^GET\ /([^.]+)\.php [NC]
+RewriteRule ^ /%1 [R=301,L]
+
+# Route clean URLs to .php files
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule ^(.+)$ $1.php [L]
+
+# Prevent direct access to .php files (optional - uncomment if needed)
+# RewriteCond %{THE_REQUEST} \.php [NC]
+# RewriteRule ^ - [F]

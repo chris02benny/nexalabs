@@ -19,6 +19,9 @@ $current_page = basename($_SERVER['PHP_SELF'], '.php');
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.min.css">
   
+  <!-- Swiper CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  
   <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -26,8 +29,8 @@ $current_page = basename($_SERVER['PHP_SELF'], '.php');
   <!-- Navigation -->
   <nav class="navbar">
     <div class="navbar-container">
-      <a href="index.php" class="navbar-brand">
-        NEXA <span class="gradient-text">Future Ready Lab</span>
+      <a href="index" class="navbar-brand">
+        <img src="assets/images/NEXA Logo.png" alt="NEXA Future Ready Lab" class="navbar-logo">
       </a>
       
       <!-- Mobile Toggle -->
@@ -39,12 +42,12 @@ $current_page = basename($_SERVER['PHP_SELF'], '.php');
       
       <!-- Navigation Links -->
       <ul class="navbar-nav">
-        <li><a href="index.php" class="nav-link <?php echo $current_page == 'index' ? 'active' : ''; ?>">Home</a></li>
-        <li><a href="programs.php" class="nav-link <?php echo $current_page == 'programs' ? 'active' : ''; ?>">Programs</a></li>
-        <li><a href="about.php" class="nav-link <?php echo $current_page == 'about' ? 'active' : ''; ?>">About</a></li>
-        <li><a href="register.php" class="nav-link <?php echo $current_page == 'register' ? 'active' : ''; ?>">Register</a></li>
-        <li><a href="enquiry.php" class="nav-link <?php echo $current_page == 'enquiry' ? 'active' : ''; ?>">Enquiry</a></li>
-        <li><a href="feedback.php" class="nav-link <?php echo $current_page == 'feedback' ? 'active' : ''; ?>">Feedback</a></li>
+        <li><a href="index" class="nav-link <?php echo $current_page == 'index' ? 'active' : ''; ?>">Home</a></li>
+        <li><a href="programs" class="nav-link <?php echo $current_page == 'programs' ? 'active' : ''; ?>">Programs</a></li>
+        <li><a href="about" class="nav-link <?php echo $current_page == 'about' ? 'active' : ''; ?>">About</a></li>
+        <li><a href="register" class="nav-link <?php echo $current_page == 'register' ? 'active' : ''; ?>">Register</a></li>
+        <li><a href="enquiry" class="nav-link <?php echo $current_page == 'enquiry' ? 'active' : ''; ?>">Enquiry</a></li>
+        <li><a href="feedback" class="nav-link <?php echo $current_page == 'feedback' ? 'active' : ''; ?>">Feedback</a></li>
       </ul>
     </div>
   </nav>

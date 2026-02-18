@@ -18,7 +18,7 @@ include 'includes/header.php';
       <p class="text-muted mb-4">
         Thank you for reaching out. Our team will get back to you within 24 hours.
       </p>
-      <a href="enquiry.php" class="btn-outline">Send Another Enquiry</a>
+      <a href="enquiry" class="btn-outline">Send Another Enquiry</a>
     </div>
   </div>
 </section>

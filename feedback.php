@@ -18,7 +18,7 @@ include 'includes/header.php';
       <p class="text-muted mb-4">
         Your feedback helps us improve our programs and create better learning experiences.
       </p>
-      <a href="feedback.php" class="btn-outline">Submit Another Feedback</a>
+      <a href="feedback" class="btn-outline">Submit Another Feedback</a>
     </div>
   </div>
 </section>
