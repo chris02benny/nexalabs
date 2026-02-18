@@ -1,4 +1,19 @@
-<?php include 'includes/header.php'; ?>
+<?php 
+require_once 'includes/db_connection.php';
+require_once 'includes/programs_helper.php';
+
+$pdo = require_once 'includes/db_connection.php';
+$allPrograms = getActivePrograms($pdo);
+$categorizedPrograms = categorizePrograms($allPrograms);
+
+// Get featured programs (first 3 from registration_open or upcoming)
+$featuredPrograms = array_merge(
+    array_slice($categorizedPrograms['registration_open'], 0, 3),
+    array_slice($categorizedPrograms['upcoming'], 0, 3 - count($categorizedPrograms['registration_open']))
+);
+
+include 'includes/header.php'; 
+?>
 
 <!-- Hero Section -->
 <section class="hero-section">
