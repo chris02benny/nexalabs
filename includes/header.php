@@ -50,9 +50,7 @@ $current_page = basename($_SERVER['PHP_SELF'], '.php');
         <li><a href="index" class="nav-link <?php echo $current_page == 'index' ? 'active' : ''; ?>">Home</a></li>
         <li><a href="programs" class="nav-link <?php echo $current_page == 'programs' ? 'active' : ''; ?>">Programs</a></li>
         <li><a href="about" class="nav-link <?php echo $current_page == 'about' ? 'active' : ''; ?>">About</a></li>
-        <li><a href="register" class="nav-link <?php echo $current_page == 'register' ? 'active' : ''; ?>">Register</a></li>
         <li><a href="enquiry" class="nav-link <?php echo $current_page == 'enquiry' ? 'active' : ''; ?>">Enquiry</a></li>
-        <li><a href="feedback" class="nav-link <?php echo $current_page == 'feedback' ? 'active' : ''; ?>">Feedback</a></li>
       </ul>
     </div>
   </nav>
