@@ -2,7 +2,8 @@
 require_once 'includes/db_connection.php';
 require_once 'includes/programs_helper.php';
 
-$pdo = require_once 'includes/db_connection.php';
+// Get PDO connection
+$pdo = isset($GLOBALS['pdo']) ? $GLOBALS['pdo'] : require_once 'includes/db_connection.php';
 $allPrograms = getActivePrograms($pdo);
 $categorizedPrograms = categorizePrograms($allPrograms);
 
@@ -193,110 +194,76 @@ include 'includes/header.php';
     </div>
     
     <div class="row g-4">
-      <?php
-      $featuredPrograms = [
-        [
-          'title' => 'Extended Reality (XR): AR & VR',
-          'focusAreas' => [
-            'Augmented Reality (AR) Development',
-            'Virtual Reality (VR) Development',
-            'Immersive Simulations & Interactive Experiences'
-          ],
-          'applications' => [
-            'Education & Training',
-            'Industrial Visualization',
-            'Smart Maintenance & Field Services',
-            'Cultural & Heritage Experiences',
-            'Engineering & Scientific Simulations',
-            'Skill Training & Safety Drills',
-            'Healthcare & Rehabilitation',
-            'Design Visualization & Gaming'
-          ],
-          'outcome' => 'Develops immersive application design skills, spatial thinking, and the ability to build interactive XR-based learning, training, and visualization solutions.',
-          'icon' => 'badge-vr',
-          'color' => 'purple'
-        ],
-        [
-          'title' => 'Robotics & Intelligent Systems',
-          'focusAreas' => [
-            'Industrial Robotics',
-            'Humanoid Robots',
-            'Drones & Autonomous Systems',
-            'AI-Enabled Robotics',
-            'Robot Operating System (ROS & ROS2)'
-          ],
-          'applications' => [
-            'Industrial Automation',
-            'Smart Manufacturing',
-            'Autonomous Navigation',
-            'Human–Robot Interaction',
-            'Research & Development'
-          ],
-          'outcome' => 'Builds hands-on expertise in robotics systems, automation, autonomy, and intelligent machine control using industry-grade platforms.',
-          'icon' => 'robot',
-          'color' => 'cyan'
-        ],
-        [
-          'title' => 'Programming Foundations',
-          'focusAreas' => [
-            'C Programming Essentials',
-            'Python for Beginners',
-            'MySQL Mastery Bootcamp'
-          ],
-          'applications' => [
-            'Software Development Foundations',
-            'Data Processing & Automation',
-            'Backend and Database Systems'
-          ],
-          'outcome' => 'Develops strong algorithmic thinking, problem-solving ability, and database fundamentals essential for advanced technology domains.',
-          'icon' => 'code-slash',
-          'color' => 'orange'
-        ],
-      ];
-      
-      foreach ($featuredPrograms as $index => $program):
+      <?php if (empty($featuredPrograms)): ?>
+      <div class="col-12 text-center py-5">
+        <i class="bi bi-book" style="font-size: 3rem; color: var(--muted-foreground);"></i>
+        <p class="text-muted mt-3">No programs available at the moment. Check back soon!</p>
+      </div>
+      <?php else: ?>
+      <?php foreach ($featuredPrograms as $index => $program): 
+        $regStart = $program['reg_start_date'] ?? null;
+        $regEnd = $program['reg_end_date'] ?? null;
+        $progStart = $program['program_start_date'] ?? null;
+        $progEnd = $program['program_end_date'] ?? null;
+        $programDays = calculateProgramDays($progStart, $progEnd);
       ?>
-      <div class="col-lg-4" data-animate>
-        <div class="glass-card program-detail-card p-4 robotics-card">
-          <h4 class="program-detail-title mb-3"><?php echo $program['title']; ?></h4>
-          
-          <div class="program-preview mb-4">
-            <div class="program-section mb-3">
-              <h6 class="program-section-title">Programmes / Focus Areas</h6>
-              <ul class="program-list">
-                <?php foreach (array_slice($program['focusAreas'], 0, 3) as $area): ?>
-                <li><?php echo $area; ?></li>
-                <?php endforeach; ?>
-              </ul>
-            </div>
-            
-            <div class="program-section mb-3">
-              <h6 class="program-section-title">Applications</h6>
-              <ul class="program-list">
-                <?php foreach (array_slice($program['applications'], 0, 4) as $app): ?>
-                <li><?php echo $app; ?></li>
-                <?php endforeach; ?>
-              </ul>
-            </div>
+      <div class="col-lg-8 col-xl-6" data-animate>
+        <div class="glass-card program-detail-card p-4 h-100 d-flex flex-column">
+          <div class="mb-3">
+            <?php echo getProgramStatusBadge($program); ?>
           </div>
           
-          <button class="btn-robotics-details w-100 mt-auto" onclick="openProgramModal(<?php echo $index; ?>)">
-            <span>More Details</span>
-            <i class="bi bi-arrow-right"></i>
-          </button>
+          <h4 class="program-detail-title mb-4"><?php echo htmlspecialchars($program['program_name']); ?></h4>
+          
+          <div class="program-info mb-4">
+            <?php if ($regStart && $regEnd): ?>
+            <div class="mb-3">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-calendar-event me-2 text-primary"></i>
+                <strong class="text-muted small">Registration Period:</strong>
+              </div>
+              <div class="ms-4">
+                <span class="text-dark"><?php echo date('M d, Y', strtotime($regStart)); ?></span>
+                <span class="mx-2">-</span>
+                <span class="text-dark"><?php echo date('M d, Y', strtotime($regEnd)); ?></span>
+              </div>
+            </div>
+            <?php endif; ?>
+            
+            <?php if ($progStart && $progEnd): ?>
+            <div class="mb-3">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-calendar-check me-2 text-success"></i>
+                <strong class="text-muted small">Course Period:</strong>
+              </div>
+              <div class="ms-4">
+                <span class="text-dark"><?php echo date('M d, Y', strtotime($progStart)); ?></span>
+                <span class="mx-2">-</span>
+                <span class="text-dark"><?php echo date('M d, Y', strtotime($progEnd)); ?></span>
+              </div>
+            </div>
+            <?php endif; ?>
+            
+            <?php if ($programDays): ?>
+            <div class="mb-3">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-clock me-2 text-info"></i>
+                <strong class="text-muted small">Duration:</strong>
+              </div>
+              <div class="ms-4">
+                <span class="text-dark fw-bold"><?php echo $programDays; ?> <?php echo $programDays == 1 ? 'Day' : 'Days'; ?></span>
+              </div>
+            </div>
+            <?php endif; ?>
+          </div>
+          
+          <a href="program_details.php?id=<?php echo $program['id']; ?>" class="btn-primary w-100 mt-auto" style="flex-shrink: 0; text-decoration: none; display: inline-block; text-align: center;">
+            View More <i class="bi bi-arrow-right ms-2"></i>
+          </a>
         </div>
       </div>
-      
-      <!-- Modal Data (hidden) -->
-      <div class="program-modal-data" id="program-data-<?php echo $index; ?>" style="display: none;">
-        <div class="program-modal-title"><?php echo $program['title']; ?></div>
-        <div class="program-modal-icon"><?php echo $program['icon']; ?></div>
-        <div class="program-modal-color"><?php echo $program['color']; ?></div>
-        <div class="program-modal-focus-areas"><?php echo json_encode($program['focusAreas']); ?></div>
-        <div class="program-modal-applications"><?php echo json_encode($program['applications']); ?></div>
-        <div class="program-modal-outcome"><?php echo $program['outcome']; ?></div>
-      </div>
       <?php endforeach; ?>
+      <?php endif; ?>
     </div>
     
     <div class="text-center mt-5" data-animate>
@@ -321,6 +288,32 @@ include 'includes/header.php';
         </button>
       </div>
       <div class="modal-body robotics-modal-body">
+        <div class="program-info-section mb-4" id="modalProgramInfo" style="display: none;">
+          <div class="mb-3" id="modalRegPeriod" style="display: none;">
+            <div class="d-flex align-items-center mb-1">
+              <i class="bi bi-calendar-event me-2 text-primary"></i>
+              <strong class="text-dark small">Registration Period:</strong>
+            </div>
+            <div class="ms-4 text-dark" id="modalRegPeriodDates"></div>
+          </div>
+          
+          <div class="mb-3" id="modalCoursePeriod" style="display: none;">
+            <div class="d-flex align-items-center mb-1">
+              <i class="bi bi-calendar-check me-2 text-success"></i>
+              <strong class="text-dark small">Course Period:</strong>
+            </div>
+            <div class="ms-4 text-dark" id="modalCoursePeriodDates"></div>
+          </div>
+          
+          <div class="mb-3" id="modalDuration" style="display: none;">
+            <div class="d-flex align-items-center mb-1">
+              <i class="bi bi-clock me-2 text-info"></i>
+              <strong class="text-dark small">Duration:</strong>
+            </div>
+            <div class="ms-4 text-dark fw-bold" id="modalDurationDays"></div>
+          </div>
+        </div>
+        
         <div class="program-section mb-4">
           <h6 class="program-section-title">
             <i class="bi bi-gear-fill me-2"></i>Programmes / Focus Areas

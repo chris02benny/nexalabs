@@ -30,7 +30,10 @@ try {
     die("Database connection failed. Please try again later.");
 }
 
-// Return the connection (optional - you can also use $GLOBALS['pdo'])
+// Store in global variable for reuse
+$GLOBALS['pdo'] = $pdo;
+
+// Return the connection
 return $pdo;
 ?>
 

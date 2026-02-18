@@ -1,4 +1,14 @@
-<?php include 'includes/header.php'; ?>
+<?php 
+require_once 'includes/db_connection.php';
+require_once 'includes/programs_helper.php';
+
+// Get PDO connection
+$pdo = isset($GLOBALS['pdo']) ? $GLOBALS['pdo'] : require_once 'includes/db_connection.php';
+$allPrograms = getActivePrograms($pdo);
+$categorizedPrograms = categorizePrograms($allPrograms);
+
+include 'includes/header.php'; 
+?>
 
 <!-- Hero Section -->
 <section class="py-5 grid-bg" style="padding: 6rem 0 4rem;">
@@ -19,191 +29,333 @@
   </div>
 </section>
 
-<!-- All Programs Grid -->
-<section class="py-5" style="padding: 5rem 0;">
+<!-- Registration Open Programs -->
+<?php if (!empty($categorizedPrograms['registration_open'])): ?>
+<section class="py-5" style="padding: 3rem 0;">
   <div class="section-container">
+    <div class="text-center mb-5" data-animate>
+      <span class="badge bg-success mb-3" style="font-size: 1rem; padding: 0.5rem 1rem;">
+        <i class="bi bi-calendar-check me-2"></i>Registration Open
+      </span>
+      <h2 class="display-5 fw-bold mb-3">
+        <span class="gradient-text-purple">Register Now</span>
+      </h2>
+      <p class="text-muted">Don't miss out! Registration is currently open for these programs.</p>
+    </div>
     <div class="row g-4">
-      <?php
-      $allPrograms = [
-        [
-          'title' => 'Extended Reality (XR): AR & VR',
-          'focusAreas' => [
-            'Augmented Reality (AR) Development',
-            'Virtual Reality (VR) Development',
-            'Immersive Simulations & Interactive Experiences'
-          ],
-          'applications' => [
-            'Education & Training',
-            'Industrial Visualization',
-            'Smart Maintenance & Field Services',
-            'Cultural & Heritage Experiences',
-            'Engineering & Scientific Simulations',
-            'Skill Training & Safety Drills',
-            'Healthcare & Rehabilitation',
-            'Design Visualization & Gaming'
-          ],
-          'outcome' => 'Develops immersive application design skills, spatial thinking, and the ability to build interactive XR-based learning, training, and visualization solutions.',
-          'icon' => 'badge-vr',
-          'color' => 'purple'
-        ],
-        [
-          'title' => 'Robotics & Intelligent Systems',
-          'focusAreas' => [
-            'Industrial Robotics',
-            'Humanoid Robots',
-            'Drones & Autonomous Systems',
-            'AI-Enabled Robotics',
-            'Robot Operating System (ROS & ROS2)'
-          ],
-          'applications' => [
-            'Industrial Automation',
-            'Smart Manufacturing',
-            'Autonomous Navigation',
-            'Human–Robot Interaction',
-            'Research & Development'
-          ],
-          'outcome' => 'Builds hands-on expertise in robotics systems, automation, autonomy, and intelligent machine control using industry-grade platforms.',
-          'icon' => 'robot',
-          'color' => 'cyan'
-        ],
-        [
-          'title' => 'Programming Foundations',
-          'focusAreas' => [
-            'C Programming Essentials',
-            'Python for Beginners',
-            'MySQL Mastery Bootcamp'
-          ],
-          'applications' => [
-            'Software Development Foundations',
-            'Data Processing & Automation',
-            'Backend and Database Systems'
-          ],
-          'outcome' => 'Develops strong algorithmic thinking, problem-solving ability, and database fundamentals essential for advanced technology domains.',
-          'icon' => 'code-slash',
-          'color' => 'orange'
-        ],
-        [
-          'title' => 'Data & Artificial Intelligence',
-          'focusAreas' => [
-            'Data Analytics with Excel, SQL, Python & Power BI',
-            'Practical Machine Learning & Deep Learning Bootcamp',
-            'Generative AI Bootcamp',
-            'AI in Content Creation',
-            'AI in Film Making'
-          ],
-          'applications' => [
-            'Predictive Analytics',
-            'Intelligent Decision Systems',
-            'Content & Media Automation',
-            'Data-Driven Business Solutions'
-          ],
-          'outcome' => 'Enables learners to design, build, and deploy AI-powered solutions using real-world data and industry tools.',
-          'icon' => 'brain',
-          'color' => 'purple'
-        ],
-        [
-          'title' => 'AI Mastery Program (Flagship)',
-          'focusAreas' => [
-            'Machine Learning & Deep Learning',
-            'Computer Vision',
-            'Natural Language Processing (NLP)',
-            'Generative AI & Foundation Models',
-            'Reinforcement Learning',
-            'Edge AI',
-            'AI integration with Robotics, XR & Digital Twin applications'
-          ],
-          'applications' => [
-            'Advanced AI Systems',
-            'Intelligent Automation',
-            'Robotics & Autonomous Systems',
-            'XR-based Intelligent Applications',
-            'Research & Product Development'
-          ],
-          'outcome' => 'Prepares learners for advanced AI roles, research pathways, and real-world industry deployment.',
-          'icon' => 'stars',
-          'color' => 'cyan'
-        ],
-        [
-          'title' => 'Robotics & Embedded Systems',
-          'focusAreas' => [
-            'Arduino Robot Maker',
-            'Circuit Simulation & Design',
-            'Mastering Arduino (Beginner to Pro)',
-            'AVR Bare-Metal Programming',
-            'ARM Register-Level Programming & Driver Development',
-            'Mastering RTOS',
-            'Mastering IoT from Scratch',
-            'IoT & Edge AI Workshop',
-            'Raspberry Pi Mastery'
-          ],
-          'applications' => [
-            'Embedded Product Development',
-            'IoT Systems & Smart Devices',
-            'Automation & Control Systems',
-            'Edge AI Solutions'
-          ],
-          'outcome' => 'Builds industry-relevant skills in embedded systems, automation, and connected intelligent devices.',
-          'icon' => 'cpu',
-          'color' => 'orange'
-        ],
-        [
-          'title' => 'Advanced & Specialized Workshops',
-          'focusAreas' => [
-            'Robotic Manipulator Workshop with ROS2',
-            'Unitree GO2 Hands-on Workshop with ROS2',
-            'Python Django Development Workshop',
-            'STEM Trainer Certification'
-          ],
-          'applications' => [
-            'Advanced Research & Prototyping',
-            'Industrial Deployment',
-            'Technical Training & Certification'
-          ],
-          'outcome' => 'Prepares participants for advanced research, industrial deployment, and professional training roles.',
-          'icon' => 'gear',
-          'color' => 'purple'
-        ],
-      ];
-      
-      foreach ($allPrograms as $program):
+      <?php foreach ($categorizedPrograms['registration_open'] as $program): 
+        $focusAreas = formatProgramText($program['focus_areas']);
+        $applications = formatProgramText($program['applications']);
       ?>
       <div class="col-lg-6 col-xl-4" data-animate>
-        <div class="glass-card program-detail-card p-4 h-100">
-          <div class="program-icon-large mb-3">
-            <i class="bi bi-<?php echo $program['icon']; ?>" style="font-size: 2.5rem; color: var(--<?php echo $program['color']; ?>);"></i>
+        <div class="glass-card program-detail-card p-4 h-100 d-flex flex-column">
+          <div class="mb-2">
+            <?php echo getProgramStatusBadge($program); ?>
           </div>
-          <h4 class="program-detail-title mb-3"><?php echo $program['title']; ?></h4>
+          <h4 class="program-detail-title mb-3"><?php echo htmlspecialchars($program['program_name']); ?></h4>
           
+          <?php if (!empty($focusAreas)): ?>
           <div class="program-section mb-3">
             <h6 class="program-section-title">Programmes / Focus Areas</h6>
             <ul class="program-list">
-              <?php foreach ($program['focusAreas'] as $area): ?>
-              <li><?php echo $area; ?></li>
+              <?php foreach (array_slice($focusAreas, 0, 3) as $area): ?>
+              <li><?php echo htmlspecialchars($area); ?></li>
               <?php endforeach; ?>
+              <?php if (count($focusAreas) > 3): ?>
+              <li class="text-muted">+<?php echo count($focusAreas) - 3; ?> more</li>
+              <?php endif; ?>
             </ul>
           </div>
+          <?php endif; ?>
           
+          <?php if (!empty($applications)): ?>
           <div class="program-section mb-3">
             <h6 class="program-section-title">Applications</h6>
             <ul class="program-list">
-              <?php foreach ($program['applications'] as $app): ?>
-              <li><?php echo $app; ?></li>
+              <?php foreach (array_slice($applications, 0, 3) as $app): ?>
+              <li><?php echo htmlspecialchars($app); ?></li>
               <?php endforeach; ?>
+              <?php if (count($applications) > 3): ?>
+              <li class="text-muted">+<?php echo count($applications) - 3; ?> more</li>
+              <?php endif; ?>
             </ul>
           </div>
+          <?php endif; ?>
           
-          <div class="program-section mb-4">
-            <h6 class="program-section-title">Outcome</h6>
-            <p class="program-outcome"><?php echo $program['outcome']; ?></p>
-          </div>
-          
-          <a href="register" class="btn-primary w-100 mt-auto">Register Now</a>
+          <a href="program_details.php?id=<?php echo $program['id']; ?>" class="btn-primary w-100 mt-auto">View More <i class="bi bi-arrow-right ms-2"></i></a>
         </div>
       </div>
       <?php endforeach; ?>
     </div>
   </div>
 </section>
+<?php endif; ?>
 
+<!-- Ongoing Programs -->
+<?php if (!empty($categorizedPrograms['ongoing'])): ?>
+<section class="py-5" style="padding: 3rem 0; background: rgba(138, 43, 226, 0.02);">
+  <div class="section-container">
+    <div class="text-center mb-5" data-animate>
+      <span class="badge bg-primary mb-3" style="font-size: 1rem; padding: 0.5rem 1rem;">
+        <i class="bi bi-play-circle me-2"></i>Currently Running
+      </span>
+      <h2 class="display-5 fw-bold mb-3">
+        <span class="gradient-text-purple">Ongoing Programs</span>
+      </h2>
+      <p class="text-muted">Programs currently in progress.</p>
+    </div>
+    <div class="row g-4">
+      <?php foreach ($categorizedPrograms['ongoing'] as $program): 
+        $focusAreas = formatProgramText($program['focus_areas']);
+        $applications = formatProgramText($program['applications']);
+      ?>
+      <div class="col-lg-6 col-xl-4" data-animate>
+        <div class="glass-card program-detail-card p-4 h-100 d-flex flex-column">
+          <div class="mb-2">
+            <?php echo getProgramStatusBadge($program); ?>
+          </div>
+          <h4 class="program-detail-title mb-3"><?php echo htmlspecialchars($program['program_name']); ?></h4>
+          
+          <div class="program-info mb-3">
+            <?php if ($regStart && $regEnd): ?>
+            <div class="mb-2">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-calendar-event me-2 text-primary" style="font-size: 0.9rem;"></i>
+                <strong class="text-muted small">Registration Period:</strong>
+              </div>
+              <div class="ms-4 text-dark small">
+                <?php echo date('M d, Y', strtotime($regStart)); ?> - <?php echo date('M d, Y', strtotime($regEnd)); ?>
+              </div>
+            </div>
+            <?php endif; ?>
+            
+            <?php if ($progStart && $progEnd): ?>
+            <div class="mb-2">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-calendar-check me-2 text-success" style="font-size: 0.9rem;"></i>
+                <strong class="text-muted small">Course Period:</strong>
+              </div>
+              <div class="ms-4 text-dark small">
+                <?php echo date('M d, Y', strtotime($progStart)); ?> - <?php echo date('M d, Y', strtotime($progEnd)); ?>
+              </div>
+            </div>
+            <?php endif; ?>
+            
+            <?php if ($programDays): ?>
+            <div class="mb-2">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-clock me-2 text-info" style="font-size: 0.9rem;"></i>
+                <strong class="text-muted small">Duration:</strong>
+              </div>
+              <div class="ms-4 text-dark small fw-bold">
+                <?php echo $programDays; ?> <?php echo $programDays == 1 ? 'Day' : 'Days'; ?>
+              </div>
+            </div>
+            <?php endif; ?>
+          </div>
+          
+          <?php if (!empty($focusAreas)): ?>
+          <div class="program-section mb-3">
+            <h6 class="program-section-title">Programmes / Focus Areas</h6>
+            <ul class="program-list">
+              <?php foreach (array_slice($focusAreas, 0, 3) as $area): ?>
+              <li><?php echo htmlspecialchars($area); ?></li>
+              <?php endforeach; ?>
+              <?php if (count($focusAreas) > 3): ?>
+              <li class="text-muted">+<?php echo count($focusAreas) - 3; ?> more</li>
+              <?php endif; ?>
+            </ul>
+          </div>
+          <?php endif; ?>
+          
+          <?php if (!empty($applications)): ?>
+          <div class="program-section mb-3">
+            <h6 class="program-section-title">Applications</h6>
+            <ul class="program-list">
+              <?php foreach (array_slice($applications, 0, 3) as $app): ?>
+              <li><?php echo htmlspecialchars($app); ?></li>
+              <?php endforeach; ?>
+              <?php if (count($applications) > 3): ?>
+              <li class="text-muted">+<?php echo count($applications) - 3; ?> more</li>
+              <?php endif; ?>
+            </ul>
+          </div>
+          <?php endif; ?>
+          
+          <a href="program_details.php?id=<?php echo $program['id']; ?>" class="btn-primary w-100 mt-auto">View More <i class="bi bi-arrow-right ms-2"></i></a>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<!-- Upcoming Programs -->
+<?php if (!empty($categorizedPrograms['upcoming']) || !empty($categorizedPrograms['upcoming_program'])): ?>
+<section class="py-5" style="padding: 3rem 0;">
+  <div class="section-container">
+    <div class="text-center mb-5" data-animate>
+      <span class="badge bg-info mb-3" style="font-size: 1rem; padding: 0.5rem 1rem;">
+        <i class="bi bi-calendar-event me-2"></i>Coming Soon
+      </span>
+      <h2 class="display-5 fw-bold mb-3">
+        <span class="gradient-text-purple">Upcoming Programs</span>
+      </h2>
+      <p class="text-muted">Programs starting soon. Stay tuned!</p>
+    </div>
+    <div class="row g-4">
+      <?php 
+      $upcomingAll = array_merge($categorizedPrograms['upcoming'], $categorizedPrograms['upcoming_program']);
+      foreach ($upcomingAll as $program): 
+        $focusAreas = formatProgramText($program['focus_areas']);
+        $applications = formatProgramText($program['applications']);
+      ?>
+      <div class="col-lg-6 col-xl-4" data-animate>
+        <div class="glass-card program-detail-card p-4 h-100 d-flex flex-column">
+          <div class="mb-2">
+            <?php echo getProgramStatusBadge($program); ?>
+          </div>
+          <h4 class="program-detail-title mb-3"><?php echo htmlspecialchars($program['program_name']); ?></h4>
+          
+          <div class="program-info mb-3">
+            <?php if ($regStart && $regEnd): ?>
+            <div class="mb-2">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-calendar-event me-2 text-primary" style="font-size: 0.9rem;"></i>
+                <strong class="text-muted small">Registration Period:</strong>
+              </div>
+              <div class="ms-4 text-dark small">
+                <?php echo date('M d, Y', strtotime($regStart)); ?> - <?php echo date('M d, Y', strtotime($regEnd)); ?>
+              </div>
+            </div>
+            <?php endif; ?>
+            
+            <?php if ($progStart && $progEnd): ?>
+            <div class="mb-2">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-calendar-check me-2 text-success" style="font-size: 0.9rem;"></i>
+                <strong class="text-muted small">Course Period:</strong>
+              </div>
+              <div class="ms-4 text-dark small">
+                <?php echo date('M d, Y', strtotime($progStart)); ?> - <?php echo date('M d, Y', strtotime($progEnd)); ?>
+              </div>
+            </div>
+            <?php endif; ?>
+            
+            <?php if ($programDays): ?>
+            <div class="mb-2">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-clock me-2 text-info" style="font-size: 0.9rem;"></i>
+                <strong class="text-muted small">Duration:</strong>
+              </div>
+              <div class="ms-4 text-dark small fw-bold">
+                <?php echo $programDays; ?> <?php echo $programDays == 1 ? 'Day' : 'Days'; ?>
+              </div>
+            </div>
+            <?php endif; ?>
+          </div>
+          
+          <?php if (!empty($focusAreas)): ?>
+          <div class="program-section mb-3">
+            <h6 class="program-section-title">Programmes / Focus Areas</h6>
+            <ul class="program-list">
+              <?php foreach (array_slice($focusAreas, 0, 3) as $area): ?>
+              <li><?php echo htmlspecialchars($area); ?></li>
+              <?php endforeach; ?>
+              <?php if (count($focusAreas) > 3): ?>
+              <li class="text-muted">+<?php echo count($focusAreas) - 3; ?> more</li>
+              <?php endif; ?>
+            </ul>
+          </div>
+          <?php endif; ?>
+          
+          <?php if (!empty($applications)): ?>
+          <div class="program-section mb-3">
+            <h6 class="program-section-title">Applications</h6>
+            <ul class="program-list">
+              <?php foreach (array_slice($applications, 0, 3) as $app): ?>
+              <li><?php echo htmlspecialchars($app); ?></li>
+              <?php endforeach; ?>
+              <?php if (count($applications) > 3): ?>
+              <li class="text-muted">+<?php echo count($applications) - 3; ?> more</li>
+              <?php endif; ?>
+            </ul>
+          </div>
+          <?php endif; ?>
+          
+          <a href="program_details.php?id=<?php echo $program['id']; ?>" class="btn-primary w-100 mt-auto">View More <i class="bi bi-arrow-right ms-2"></i></a>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<!-- All Programs Grid (Fallback if no categorized programs) -->
+<?php if (empty($categorizedPrograms['registration_open']) && empty($categorizedPrograms['ongoing']) && empty($categorizedPrograms['upcoming']) && empty($categorizedPrograms['upcoming_program']) && !empty($allPrograms)): ?>
+<section class="py-5" style="padding: 5rem 0;">
+  <div class="section-container">
+    <div class="row g-4">
+      <?php
+      foreach ($allPrograms as $program):
+        $focusAreas = formatProgramText($program['focus_areas']);
+        $applications = formatProgramText($program['applications']);
+      ?>
+      <div class="col-lg-6 col-xl-4" data-animate>
+        <div class="glass-card program-detail-card p-4 h-100 d-flex flex-column">
+          <div class="mb-2">
+            <?php echo getProgramStatusBadge($program); ?>
+          </div>
+          <h4 class="program-detail-title mb-3"><?php echo htmlspecialchars($program['program_name']); ?></h4>
+          
+          <?php if (!empty($focusAreas)): ?>
+          <div class="program-section mb-3">
+            <h6 class="program-section-title">Programmes / Focus Areas</h6>
+            <ul class="program-list">
+              <?php foreach (array_slice($focusAreas, 0, 3) as $area): ?>
+              <li><?php echo htmlspecialchars($area); ?></li>
+              <?php endforeach; ?>
+              <?php if (count($focusAreas) > 3): ?>
+              <li class="text-muted">+<?php echo count($focusAreas) - 3; ?> more</li>
+              <?php endif; ?>
+            </ul>
+          </div>
+          <?php endif; ?>
+          
+          <?php if (!empty($applications)): ?>
+          <div class="program-section mb-3">
+            <h6 class="program-section-title">Applications</h6>
+            <ul class="program-list">
+              <?php foreach (array_slice($applications, 0, 3) as $app): ?>
+              <li><?php echo htmlspecialchars($app); ?></li>
+              <?php endforeach; ?>
+              <?php if (count($applications) > 3): ?>
+              <li class="text-muted">+<?php echo count($applications) - 3; ?> more</li>
+              <?php endif; ?>
+            </ul>
+          </div>
+          <?php endif; ?>
+          
+          <a href="program_details.php?id=<?php echo $program['id']; ?>" class="btn-primary w-100 mt-auto">View More <i class="bi bi-arrow-right ms-2"></i></a>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<?php if (empty($allPrograms)): ?>
+<section class="py-5" style="padding: 5rem 0;">
+  <div class="section-container">
+    <div class="text-center py-5">
+      <i class="bi bi-book" style="font-size: 3rem; color: var(--muted-foreground);"></i>
+      <p class="text-muted mt-3">No programs available at the moment. Check back soon!</p>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
 
 <?php include 'includes/footer.php'; ?>

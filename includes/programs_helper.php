@@ -84,5 +84,18 @@ function getProgramStatusBadge($program) {
     
     return '';
 }
+
+function calculateProgramDays($startDate, $endDate) {
+    if (!$startDate || !$endDate) {
+        return null;
+    }
+    
+    $start = new DateTime($startDate);
+    $end = new DateTime($endDate);
+    $diff = $start->diff($end);
+    
+    // Add 1 to include both start and end dates
+    return $diff->days + 1;
+}
 ?>
 
