@@ -9,6 +9,11 @@ $current_page = basename($_SERVER['PHP_SELF'], '.php');
   <meta name="description" content="NEXA Future Ready Lab - Empowering students through robotics, AI, and coding education">
   <title><?php echo ucfirst($current_page); ?> - NEXA Future Ready Lab</title>
   
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/images/NEXA Logo.png">
+  <link rel="shortcut icon" type="image/png" href="assets/images/NEXA Logo.png">
+  <link rel="apple-touch-icon" href="assets/images/NEXA Logo.png">
+  
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

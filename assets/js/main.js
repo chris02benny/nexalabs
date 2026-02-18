@@ -149,41 +149,46 @@ window.addEventListener('load', function () {
     initLearnerGroupsSwiper();
 });
 
-// Toggle Program Details
-function toggleProgramDetails(index, event) {
-    const content = document.getElementById(`program-${index}`);
-    const button = event.currentTarget;
-    const btnText = button.querySelector('.details-btn-text');
-    const btnIcon = button.querySelector('.details-btn-icon');
+// Open Program Modal
+function openProgramModal(index) {
+    const dataElement = document.getElementById(`program-data-${index}`);
+    if (!dataElement) return;
 
-    const isExpanding = !content.classList.contains('active');
+    const title = dataElement.querySelector('.program-modal-title').textContent;
+    const icon = dataElement.querySelector('.program-modal-icon').textContent;
+    const color = dataElement.querySelector('.program-modal-color').textContent;
+    const focusAreas = JSON.parse(dataElement.querySelector('.program-modal-focus-areas').textContent);
+    const applications = JSON.parse(dataElement.querySelector('.program-modal-applications').textContent);
+    const outcome = dataElement.querySelector('.program-modal-outcome').textContent;
 
-    // Close all other open program details
-    document.querySelectorAll('.program-details-content.active').forEach(otherContent => {
-        if (otherContent !== content) {
-            otherContent.classList.remove('active');
-            // Update the button of the other closed card
-            const otherCard = otherContent.closest('.program-detail-card');
-            const otherBtnText = otherCard.querySelector('.details-btn-text');
-            const otherBtnIcon = otherCard.querySelector('.details-btn-icon');
-            if (otherBtnText) otherBtnText.textContent = 'Show Details';
-            if (otherBtnIcon) {
-                otherBtnIcon.classList.remove('bi-chevron-up');
-                otherBtnIcon.classList.add('bi-chevron-down');
-            }
-        }
+    // Set modal content
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalIcon').className = `bi bi-${icon}`;
+    document.getElementById('modalOutcome').textContent = outcome;
+
+    // Set color theme
+    const modal = document.getElementById('programModal');
+    modal.setAttribute('data-color', color);
+
+    // Populate focus areas
+    const focusAreasList = document.getElementById('modalFocusAreas');
+    focusAreasList.innerHTML = '';
+    focusAreas.forEach(area => {
+        const li = document.createElement('li');
+        li.textContent = area;
+        focusAreasList.appendChild(li);
     });
 
-    // Toggle the clicked one
-    content.classList.toggle('active');
+    // Populate applications
+    const applicationsList = document.getElementById('modalApplications');
+    applicationsList.innerHTML = '';
+    applications.forEach(app => {
+        const li = document.createElement('li');
+        li.textContent = app;
+        applicationsList.appendChild(li);
+    });
 
-    if (content.classList.contains('active')) {
-        btnText.textContent = 'Hide Details';
-        btnIcon.classList.remove('bi-chevron-down');
-        btnIcon.classList.add('bi-chevron-up');
-    } else {
-        btnText.textContent = 'Show Details';
-        btnIcon.classList.remove('bi-chevron-up');
-        btnIcon.classList.add('bi-chevron-down');
-    }
+    // Show modal using Bootstrap
+    const modalInstance = new bootstrap.Modal(document.getElementById('programModal'));
+    modalInstance.show();
 }

@@ -2,49 +2,118 @@
 
 <!-- Hero Section -->
 <section class="hero-section">
+  <!-- Background Decorative Elements -->
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-gradient-orb hero-orb-1"></div>
+  <div class="hero-gradient-orb hero-orb-2"></div>
+  <div class="hero-gradient-orb hero-orb-3"></div>
+  
   <div class="section-container">
-    <div class="row align-items-center">
+    <div class="row align-items-center g-5">
       <!-- Content -->
       <div class="col-lg-6 mb-5 mb-lg-0 slide-in-left">
-        <h1 class="display-3 fw-bold mb-3">
+        <!-- Badge -->
+        <div class="hero-badge mb-4">
+          <span class="badge-text">Future-Ready Education</span>
+          <i class="bi bi-arrow-right ms-2"></i>
+        </div>
+        
+        <h1 class="hero-title mb-4">
           Building Skills for <span class="gradient-text">Tomorrow's World</span>
         </h1>
         
-        <p class="hero-tagline mb-3" style="font-size: 1.1rem; font-weight: 600; color: var(--cyan);">
-           Powered by AJCE × Unique World Robotics (India & UAE)
+        <!-- Hero Image (Mobile only - appears after title) -->
+        <div class="hero-image-mobile d-lg-none">
+          <div class="hero-visual-container">
+            <div class="hero-main-image">
+              <div class="hero-image-glow"></div>
+              <img src="assets/images/hero-robot.png" alt="Nexalabs Robot" class="img-fluid hero-robot-img">
+            </div>
+          </div>
+        </div>
+        
+        <p class="hero-tagline mb-4">
+          <i class="bi bi-shield-check me-2"></i>
+          Powered by AJCE × Unique World Robotics (India & UAE)
         </p>
         
-        <p class="text-muted mb-3" style="max-width: 600px; line-height: 1.7;">
+        <p class="hero-description mb-4">
           The NEXA Future Ready Lab is a next-generation learning and innovation ecosystem designed to prepare students, educators, and professionals for emerging technologies through hands-on, industry-aligned learning.
         </p>
         
-        <p class="text-muted mb-4" style="max-width: 600px; line-height: 1.7;">
+        <p class="hero-description mb-5">
           Our programs span schools, colleges, and advanced learners, combining Extended Reality (XR), Artificial Intelligence, Robotics, Embedded Systems, and Digital Technologies into a unified, future-ready platform.
         </p>
         
-        <div class="d-flex flex-column flex-sm-row gap-3">
-          <a href="programs" class="btn-primary">
-            Explore Programs </i>
+        <!-- CTA Buttons -->
+        <div class="hero-cta d-flex flex-column flex-sm-row gap-3 mb-5">
+          <a href="programs" class="btn-hero-primary">
+            <span>Explore Programs</span>
+            <i class="bi bi-arrow-right ms-2"></i>
           </a>
-          <a href="register" class="btn-secondary">
-            Register Now</i>
+          <a href="register" class="btn-hero-secondary">
+            <span>Register Now</span>
+            <i class="bi bi-rocket-takeoff ms-2"></i>
           </a>
+        </div>
+        
+        <!-- Stats Row -->
+        <div class="hero-stats d-flex flex-wrap gap-4">
+          <div class="hero-stat-item">
+            <div class="stat-value">5,000+</div>
+            <div class="stat-label">Students</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="stat-value">25+</div>
+            <div class="stat-label">Programs</div>
+          </div>
+          <div class="hero-stat-item">
+            <div class="stat-value">50+</div>
+            <div class="stat-label">Mentors</div>
+          </div>
         </div>
       </div>
       
-      <!-- Hero Image -->
-      <div class="col-lg-6 scale-in">
-        <div class="hero-glow text-center">
-          <img src="assets/images/hero-robot.png" alt="Nexalabs Robot" class="img-fluid rounded-3 float-animation">
-          
-          <!-- Floating Badges -->
-          <div class="position-absolute top-0 end-0 glass-card p-3 rounded-3 float-animation-delayed" style="margin: -1rem;">
-            <i class="bi bi-cpu" style="font-size: 2rem; color: var(--cyan);"></i>
+      <!-- Hero Images & Visuals (Desktop only) -->
+      <div class="col-lg-6 scale-in d-none d-lg-block">
+        <div class="hero-visual-container">
+          <!-- Main Robot Image -->
+          <div class="hero-main-image">
+            <div class="hero-image-glow"></div>
+            <img src="assets/images/hero-robot.png" alt="Nexalabs Robot" class="img-fluid hero-robot-img">
           </div>
           
-          <div class="position-absolute bottom-0 start-0 glass-card p-3 rounded-3 float-animation" style="margin: 2rem 0 0 -1rem;">
-            <i class="bi bi-lightning-charge" style="font-size: 2rem; color: var(--orange);"></i>
+          <!-- Floating Tech Icons -->
+          <div class="hero-floating-icon hero-icon-1">
+            <div class="icon-wrapper">
+              <i class="bi bi-cpu-fill"></i>
+            </div>
+            <span class="icon-label">AI & ML</span>
           </div>
+          
+          <div class="hero-floating-icon hero-icon-2">
+            <div class="icon-wrapper">
+              <i class="bi bi-robot"></i>
+            </div>
+            <span class="icon-label">Robotics</span>
+          </div>
+          
+          <div class="hero-floating-icon hero-icon-3">
+            <div class="icon-wrapper">
+              <i class="bi bi-vr"></i>
+            </div>
+            <span class="icon-label">XR/VR</span>
+          </div>
+          
+          <div class="hero-floating-icon hero-icon-4">
+            <div class="icon-wrapper">
+              <i class="bi bi-code-slash"></i>
+            </div>
+            <span class="icon-label">Coding</span>
+          </div>
+          
+          <!-- Decorative Grid Pattern -->
+          <div class="hero-grid-pattern"></div>
         </div>
       </div>
     </div>
@@ -173,10 +242,10 @@
       foreach ($featuredPrograms as $index => $program):
       ?>
       <div class="col-lg-4" data-animate>
-        <div class="glass-card program-detail-card p-4">
+        <div class="glass-card program-detail-card p-4 robotics-card">
           <h4 class="program-detail-title mb-3"><?php echo $program['title']; ?></h4>
           
-          <div class="program-details-content" id="program-<?php echo $index; ?>">
+          <div class="program-preview mb-4">
             <div class="program-section mb-3">
               <h6 class="program-section-title">Programmes / Focus Areas</h6>
               <ul class="program-list">
@@ -194,18 +263,23 @@
                 <?php endforeach; ?>
               </ul>
             </div>
-            
-            <div class="program-section mb-3">
-              <h6 class="program-section-title">Outcome</h6>
-              <p class="program-outcome"><?php echo $program['outcome']; ?></p>
-            </div>
           </div>
           
-          <button class="btn-purple-outline w-100 mt-3" onclick="toggleProgramDetails(<?php echo $index; ?>, event)">
-            <span class="details-btn-text">Show Details</span>
-            <i class="bi bi-chevron-down details-btn-icon"></i>
+          <button class="btn-robotics-details w-100 mt-auto" onclick="openProgramModal(<?php echo $index; ?>)">
+            <span>More Details</span>
+            <i class="bi bi-arrow-right"></i>
           </button>
         </div>
+      </div>
+      
+      <!-- Modal Data (hidden) -->
+      <div class="program-modal-data" id="program-data-<?php echo $index; ?>" style="display: none;">
+        <div class="program-modal-title"><?php echo $program['title']; ?></div>
+        <div class="program-modal-icon"><?php echo $program['icon']; ?></div>
+        <div class="program-modal-color"><?php echo $program['color']; ?></div>
+        <div class="program-modal-focus-areas"><?php echo json_encode($program['focusAreas']); ?></div>
+        <div class="program-modal-applications"><?php echo json_encode($program['applications']); ?></div>
+        <div class="program-modal-outcome"><?php echo $program['outcome']; ?></div>
       </div>
       <?php endforeach; ?>
     </div>
@@ -217,6 +291,50 @@
     </div>
   </div>
 </section>
+
+<!-- Program Details Modal -->
+<div class="modal fade robotics-modal" id="programModal" tabindex="-1" aria-labelledby="programModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content robotics-modal-content">
+      <div class="modal-header robotics-modal-header">
+        <div class="modal-icon-wrapper">
+          <i class="bi" id="modalIcon"></i>
+        </div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <button type="button" class="btn-close robotics-close" data-bs-dismiss="modal" aria-label="Close">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      <div class="modal-body robotics-modal-body">
+        <div class="program-section mb-4">
+          <h6 class="program-section-title">
+            <i class="bi bi-gear-fill me-2"></i>Programmes / Focus Areas
+          </h6>
+          <ul class="program-list" id="modalFocusAreas"></ul>
+        </div>
+        
+        <div class="program-section mb-4">
+          <h6 class="program-section-title">
+            <i class="bi bi-application me-2"></i>Applications
+          </h6>
+          <ul class="program-list" id="modalApplications"></ul>
+        </div>
+        
+        <div class="program-section">
+          <h6 class="program-section-title">
+            <i class="bi bi-trophy-fill me-2"></i>Outcome
+          </h6>
+          <p class="program-outcome" id="modalOutcome"></p>
+        </div>
+      </div>
+      <div class="modal-footer robotics-modal-footer">
+        <a href="register" class="btn-robotics-primary">
+          Register Now <i class="bi bi-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Learner Groups Section -->
 <section class="stats-section-fullscreen position-relative">
