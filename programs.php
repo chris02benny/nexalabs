@@ -116,44 +116,6 @@ include 'includes/header.php';
           </div>
           <h4 class="program-detail-title mb-3"><?php echo htmlspecialchars($program['program_name']); ?></h4>
           
-          <div class="program-info mb-3">
-            <?php if ($regStart && $regEnd): ?>
-            <div class="mb-2">
-              <div class="d-flex align-items-center mb-1">
-                <i class="bi bi-calendar-event me-2 text-primary" style="font-size: 0.9rem;"></i>
-                <strong class="text-muted small">Registration Period:</strong>
-              </div>
-              <div class="ms-4 text-dark small">
-                <?php echo date('M d, Y', strtotime($regStart)); ?> - <?php echo date('M d, Y', strtotime($regEnd)); ?>
-              </div>
-            </div>
-            <?php endif; ?>
-            
-            <?php if ($progStart && $progEnd): ?>
-            <div class="mb-2">
-              <div class="d-flex align-items-center mb-1">
-                <i class="bi bi-calendar-check me-2 text-success" style="font-size: 0.9rem;"></i>
-                <strong class="text-muted small">Course Period:</strong>
-              </div>
-              <div class="ms-4 text-dark small">
-                <?php echo date('M d, Y', strtotime($progStart)); ?> - <?php echo date('M d, Y', strtotime($progEnd)); ?>
-              </div>
-            </div>
-            <?php endif; ?>
-            
-            <?php if ($programDays): ?>
-            <div class="mb-2">
-              <div class="d-flex align-items-center mb-1">
-                <i class="bi bi-clock me-2 text-info" style="font-size: 0.9rem;"></i>
-                <strong class="text-muted small">Duration:</strong>
-              </div>
-              <div class="ms-4 text-dark small fw-bold">
-                <?php echo $programDays; ?> <?php echo $programDays == 1 ? 'Day' : 'Days'; ?>
-              </div>
-            </div>
-            <?php endif; ?>
-          </div>
-          
           <?php if (!empty($focusAreas)): ?>
           <div class="program-section mb-3">
             <h6 class="program-section-title">Programmes / Focus Areas</h6>
@@ -217,44 +179,6 @@ include 'includes/header.php';
             <?php echo getProgramStatusBadge($program); ?>
           </div>
           <h4 class="program-detail-title mb-3"><?php echo htmlspecialchars($program['program_name']); ?></h4>
-          
-          <div class="program-info mb-3">
-            <?php if ($regStart && $regEnd): ?>
-            <div class="mb-2">
-              <div class="d-flex align-items-center mb-1">
-                <i class="bi bi-calendar-event me-2 text-primary" style="font-size: 0.9rem;"></i>
-                <strong class="text-muted small">Registration Period:</strong>
-              </div>
-              <div class="ms-4 text-dark small">
-                <?php echo date('M d, Y', strtotime($regStart)); ?> - <?php echo date('M d, Y', strtotime($regEnd)); ?>
-              </div>
-            </div>
-            <?php endif; ?>
-            
-            <?php if ($progStart && $progEnd): ?>
-            <div class="mb-2">
-              <div class="d-flex align-items-center mb-1">
-                <i class="bi bi-calendar-check me-2 text-success" style="font-size: 0.9rem;"></i>
-                <strong class="text-muted small">Course Period:</strong>
-              </div>
-              <div class="ms-4 text-dark small">
-                <?php echo date('M d, Y', strtotime($progStart)); ?> - <?php echo date('M d, Y', strtotime($progEnd)); ?>
-              </div>
-            </div>
-            <?php endif; ?>
-            
-            <?php if ($programDays): ?>
-            <div class="mb-2">
-              <div class="d-flex align-items-center mb-1">
-                <i class="bi bi-clock me-2 text-info" style="font-size: 0.9rem;"></i>
-                <strong class="text-muted small">Duration:</strong>
-              </div>
-              <div class="ms-4 text-dark small fw-bold">
-                <?php echo $programDays; ?> <?php echo $programDays == 1 ? 'Day' : 'Days'; ?>
-              </div>
-            </div>
-            <?php endif; ?>
-          </div>
           
           <?php if (!empty($focusAreas)): ?>
           <div class="program-section mb-3">

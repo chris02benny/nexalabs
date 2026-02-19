@@ -1,7 +1,42 @@
 <?php
 session_start();
+require_once 'includes/db_connection.php';
+require_once 'includes/programs_helper.php';
+
 $success = isset($_SESSION['registration_success']) ? $_SESSION['registration_success'] : false;
+$error = isset($_SESSION['error']) ? $_SESSION['error'] : '';
 unset($_SESSION['registration_success']);
+unset($_SESSION['error']);
+
+// Get program ID from URL - required
+$programId = isset($_GET['id']) ? intval($_GET['id']) : 0;
+
+// Redirect to programs page if no program ID provided
+if ($programId <= 0) {
+    header('Location: programs.php');
+    exit;
+}
+
+$program = null;
+$programName = '';
+
+$pdo = isset($GLOBALS['pdo']) ? $GLOBALS['pdo'] : require_once 'includes/db_connection.php';
+try {
+    $stmt = $pdo->prepare("SELECT * FROM programs WHERE id = ? AND isactive = 1 LIMIT 1");
+    $stmt->execute([$programId]);
+    $program = $stmt->fetch();
+    if ($program) {
+        $programName = htmlspecialchars($program['program_name']);
+    } else {
+        // Program not found or inactive, redirect to programs page
+        header('Location: programs.php');
+        exit;
+    }
+} catch (PDOException $e) {
+    error_log("Get Program Error: " . $e->getMessage());
+    header('Location: programs.php');
+    exit;
+}
 
 include 'includes/header.php';
 ?>
@@ -11,14 +46,17 @@ include 'includes/header.php';
 <section class="py-5 d-flex align-items-center" style="min-height: 80vh; padding: 6rem 0;">
   <div class="section-container">
     <div class="text-center mx-auto scale-in" style="max-width: 500px;">
-      <div class="mx-auto mb-4 rounded-circle d-flex align-items-center justify-center" style="width: 80px; height: 80px; background: linear-gradient(135deg, hsla(190, 100%, 50%, 0.2), hsla(270, 80%, 60%, 0.2));">
-        <i class="bi bi-check-circle" style="font-size: 2.5rem; color: var(--primary);"></i>
+      <div class="mx-auto mb-4 d-flex align-items-center justify-content-center" style="width: 120px; height: 120px; position: relative;">
+        <div class="rounded-circle position-absolute" style="width: 120px; height: 120px; background: linear-gradient(135deg, hsla(190, 100%, 50%, 0.15), hsla(270, 80%, 60%, 0.15));"></div>
+        <div class="rounded-circle d-flex align-items-center justify-content-center position-relative" style="width: 70px; height: 70px; background: #00d4ff; border: 3px solid #00d4ff; z-index: 1;">
+          <i class="bi bi-check-lg" style="font-size: 2rem; color: #ffffff; line-height: 1;"></i>
+        </div>
       </div>
       <h2 class="display-5 fw-bold mb-3">Registration Successful!</h2>
       <p class="text-muted mb-4">
         Thank you for registering. We'll contact you shortly with program details.
       </p>
-      <a href="register" class="btn-outline">Register for Another Program</a>
+      <a href="programs.php" class="btn-outline">Register for Another Program</a>
     </div>
   </div>
 </section>
@@ -47,6 +85,12 @@ include 'includes/header.php';
 <section class="py-5" style="padding: 4rem 0;">
   <div class="section-container" style="max-width: 700px;">
     <div class="glass-card no-hover p-4 p-md-5" data-animate>
+      <?php if (!empty($error)): ?>
+      <div class="alert alert-danger d-flex align-items-center mb-4" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <div><?php echo htmlspecialchars($error); ?></div>
+      </div>
+      <?php endif; ?>
       <form action="backend/submit_register.php" method="POST">
         <!-- Student Name -->
         <div class="mb-4">
@@ -64,6 +108,15 @@ include 'includes/header.php';
             <span class="fw-medium">Email Address *</span>
           </label>
           <input type="email" class="form-input" id="email" name="email" required placeholder="student@email.com">
+        </div>
+        
+        <!-- Phone -->
+        <div class="mb-4">
+          <label for="phone" class="form-label d-flex align-items-center gap-2">
+            <i class="bi bi-phone" style="color: var(--primary);"></i>
+            <span class="fw-medium">Phone Number</span>
+          </label>
+          <input type="tel" class="form-input" id="phone" name="phone" placeholder="Enter phone number">
         </div>
         
         <!-- Age & Gender Row -->
@@ -123,21 +176,14 @@ include 'includes/header.php';
         
         <!-- Program Selection -->
         <div class="mb-4">
-          <label for="program" class="form-label d-flex align-items-center gap-2">
+          <label class="form-label d-flex align-items-center gap-2">
             <i class="bi bi-book" style="color: var(--primary);"></i>
-            <span class="fw-medium">Select Program *</span>
+            <span class="fw-medium">Program</span>
           </label>
-          <select class="form-input" id="program" name="program" required>
-            <option value="">Select a program</option>
-            <option value="Robotics Fundamentals">Robotics Fundamentals</option>
-            <option value="AI & Machine Learning">AI & Machine Learning</option>
-            <option value="Python Programming">Python Programming</option>
-            <option value="Arduino Workshop">Arduino Workshop</option>
-            <option value="Innovation Labs">Innovation Labs</option>
-            <option value="Space Tech Explorers">Space Tech Explorers</option>
-            <option value="3D Design & Printing">3D Design & Printing</option>
-            <option value="Game Development">Game Development</option>
-          </select>
+          <div class="form-input" style="background: #f8f9fa; color: #212529; cursor: default;">
+            <?php echo $programName; ?>
+          </div>
+          <input type="hidden" name="program_id" value="<?php echo $programId; ?>">
         </div>
         
         <!-- Submit Button -->

@@ -188,6 +188,7 @@ include 'includes/admin_header.php';
     <table class="table" style="color: var(--foreground);">
       <thead>
         <tr>
+          <th>Sl No</th>
           <th>Program Name</th>
           <th>Status</th>
           <th>Registration Period</th>
@@ -197,8 +198,11 @@ include 'includes/admin_header.php';
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($programs as $program): ?>
+        <?php $slNo = 1; foreach ($programs as $program): ?>
         <tr>
+          <td>
+            <span class="text-muted"><?php echo $slNo++; ?></span>
+          </td>
           <td>
             <strong><?php echo htmlspecialchars($program['program_name']); ?></strong>
           </td>
@@ -232,6 +236,9 @@ include 'includes/admin_header.php';
             </button>
             <button class="btn btn-sm btn-outline-secondary" onclick="editProgram(<?php echo $program['id']; ?>)" title="Edit Program" style="padding: 0.375rem 0.5rem;">
               <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-sm btn-outline-success" onclick="shareFeedback(<?php echo $program['id']; ?>, this)" title="Share Feedback Link" style="padding: 0.375rem 0.5rem;">
+              <i class="bi bi-share"></i>
             </button>
           </td>
         </tr>
@@ -660,7 +667,7 @@ function renderTable() {
   if (filteredPrograms.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="6" class="text-center py-5">
+        <td colspan="7" class="text-center py-5">
           <i class="bi bi-inbox" style="font-size: 2rem; color: var(--muted-foreground);"></i>
           <p class="text-muted mt-2">No programs found matching your criteria.</p>
         </td>
@@ -669,7 +676,7 @@ function renderTable() {
     return;
   }
   
-  tbody.innerHTML = filteredPrograms.map(program => {
+  tbody.innerHTML = filteredPrograms.map((program, index) => {
     const statusBadge = program.isactive == 1 
       ? '<span class="badge bg-success">Active</span>' 
       : '<span class="badge bg-secondary">Inactive</span>';
@@ -684,6 +691,7 @@ function renderTable() {
     
     return `
       <tr>
+        <td><span class="text-muted">${index + 1}</span></td>
         <td><strong>${escapeHtml(program.program_name)}</strong></td>
         <td>${statusBadge}</td>
         <td>${regPeriod}</td>
@@ -695,6 +703,9 @@ function renderTable() {
           </button>
           <button class="btn btn-sm btn-outline-secondary" onclick="editProgram(${program.id})" title="Edit Program" style="padding: 0.375rem 0.5rem;">
             <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-sm btn-outline-success" onclick="shareFeedback(${program.id}, this)" title="Share Feedback Link" style="padding: 0.375rem 0.5rem;">
+            <i class="bi bi-share"></i>
           </button>
         </td>
       </tr>
@@ -786,6 +797,126 @@ function viewProgram(id) {
   
   document.getElementById('viewProgramContent').innerHTML = content;
   new bootstrap.Modal(document.getElementById('viewProgramModal')).show();
+}
+
+function shareFeedback(programId, buttonElement) {
+  // Get the base URL (protocol + host + path without filename)
+  const pathParts = window.location.pathname.split('/');
+  pathParts.pop(); // Remove the current filename (admin_programmes.php)
+  const basePath = pathParts.join('/') + '/';
+  const baseUrl = window.location.origin + basePath;
+  // Use 'feedback' without .php extension (works with URL rewriting)
+  const feedbackUrl = baseUrl + 'feedback?id=' + programId;
+  
+  // Copy to clipboard
+  navigator.clipboard.writeText(feedbackUrl).then(() => {
+    // Update button state
+    if (buttonElement) {
+      const originalHTML = buttonElement.innerHTML;
+      const icon = buttonElement.querySelector('i');
+      buttonElement.innerHTML = '<i class="bi bi-check-circle"></i>';
+      buttonElement.classList.remove('btn-outline-success');
+      buttonElement.classList.add('btn-success');
+      buttonElement.title = 'Feedback link copied!';
+      
+      // Show toast notification
+      showToast('Feedback link copied to clipboard!', 'success');
+      
+      // Reset button after 2 seconds
+      setTimeout(() => {
+        buttonElement.innerHTML = originalHTML;
+        buttonElement.classList.remove('btn-success');
+        buttonElement.classList.add('btn-outline-success');
+        buttonElement.title = 'Share Feedback Link';
+      }, 2000);
+    } else {
+      showToast('Feedback link copied to clipboard!', 'success');
+    }
+  }).catch(() => {
+    // Fallback: show error toast
+    showToast('Failed to copy link. Please copy manually: ' + feedbackUrl, 'error');
+  });
+}
+
+function showToast(message, type) {
+  // Remove existing toast if any
+  const existingToast = document.getElementById('shareToast');
+  if (existingToast) {
+    existingToast.remove();
+  }
+  
+  // Create toast element
+  const toast = document.createElement('div');
+  toast.id = 'shareToast';
+  toast.className = `toast-notification toast-${type}`;
+  toast.innerHTML = `
+    <div class="toast-content">
+      <i class="bi ${type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-circle-fill'}"></i>
+      <span>${message}</span>
+    </div>
+  `;
+  
+  // Add styles
+  toast.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: ${type === 'success' ? '#28a745' : '#dc3545'};
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 10000;
+    animation: slideInRight 0.3s ease-out;
+    max-width: 400px;
+  `;
+  
+  // Add animation
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideInRight {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+    @keyframes slideOutRight {
+      from {
+        transform: translateX(0);
+        opacity: 1;
+      }
+      to {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+    }
+    .toast-content {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .toast-content i {
+      font-size: 1.25rem;
+    }
+  `;
+  if (!document.getElementById('toastStyles')) {
+    style.id = 'toastStyles';
+    document.head.appendChild(style);
+  }
+  
+  document.body.appendChild(toast);
+  
+  // Auto remove after 3 seconds
+  setTimeout(() => {
+    toast.style.animation = 'slideOutRight 0.3s ease-out';
+    setTimeout(() => {
+      toast.remove();
+    }, 300);
+  }, 3000);
 }
 
 function editProgram(id) {

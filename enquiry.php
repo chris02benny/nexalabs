@@ -11,14 +11,19 @@ include 'includes/header.php';
 <section class="py-5 d-flex align-items-center" style="min-height: 80vh; padding: 6rem 0;">
   <div class="section-container">
     <div class="text-center mx-auto scale-in" style="max-width: 500px;">
-      <div class="mx-auto mb-4 rounded-circle d-flex align-items-center justify-center" style="width: 80px; height: 80px; background: linear-gradient(135deg, hsla(190, 100%, 50%, 0.2), hsla(270, 80%, 60%, 0.2));">
-        <i class="bi bi-check-circle" style="font-size: 2.5rem; color: var(--primary);"></i>
+      <div class="mx-auto mb-4 d-flex align-items-center justify-content-center" style="width: 120px; height: 120px; position: relative;">
+        <div class="rounded-circle position-absolute" style="width: 120px; height: 120px; background: linear-gradient(135deg, hsla(190, 100%, 50%, 0.15), hsla(270, 80%, 60%, 0.15));"></div>
+        <div class="rounded-circle d-flex align-items-center justify-content-center position-relative" style="width: 70px; height: 70px; background: #00d4ff; border: 3px solid #00d4ff; z-index: 1;">
+          <i class="bi bi-check-lg" style="font-size: 2rem; color: #ffffff; line-height: 1;"></i>
+        </div>
       </div>
       <h2 class="display-5 fw-bold mb-3">Message Sent!</h2>
       <p class="text-muted mb-4">
         Thank you for reaching out. Our team will get back to you within 24 hours.
       </p>
-      <a href="enquiry" class="btn-outline">Send Another Enquiry</a>
+      <a href="index" class="btn-primary">
+        <i class="bi bi-house me-2"></i>Go to Home Page
+      </a>
     </div>
   </div>
 </section>
@@ -72,7 +77,7 @@ include 'includes/header.php';
             <i class="bi bi-telephone" style="color: var(--primary);"></i>
             <span class="fw-medium">Phone Number</span>
           </label>
-          <input type="tel" class="form-input" id="phone" name="phone" placeholder="+91 98765 43210">
+          <input type="tel" class="form-input" id="phone" name="phone" placeholder="+91 99999 99999">
         </div>
         
         <!-- Message -->

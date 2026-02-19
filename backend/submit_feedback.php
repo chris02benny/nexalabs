@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once '../includes/db_connection.php';
 
 // Check if form was submitted
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -7,17 +8,50 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+$pdo = isset($GLOBALS['pdo']) ? $GLOBALS['pdo'] : require_once '../includes/db_connection.php';
+
 // Sanitize and validate input
 $studentName = htmlspecialchars(trim($_POST['studentName'] ?? ''));
-$program = htmlspecialchars(trim($_POST['program'] ?? ''));
+$studentEmail = filter_var(trim($_POST['studentEmail'] ?? ''), FILTER_SANITIZE_EMAIL);
+$programId = isset($_POST['program_id']) ? intval($_POST['program_id']) : 0;
 $rating = filter_var($_POST['rating'] ?? '', FILTER_VALIDATE_INT);
 $feedback = htmlspecialchars(trim($_POST['feedback'] ?? ''));
 $suggestions = htmlspecialchars(trim($_POST['suggestions'] ?? ''));
 
 // Validate required fields
-if (empty($studentName) || empty($program) || !$rating || empty($feedback)) {
+if (empty($studentName) || empty($studentEmail) || $programId <= 0 || !$rating || empty($feedback)) {
     $_SESSION['error'] = 'Please fill in all required fields.';
-    header('Location: ../feedback.php');
+    $redirectUrl = $programId > 0 ? '../feedback.php?id=' . $programId : '../feedback.php';
+    header('Location: ' . $redirectUrl);
+    exit;
+}
+
+// Validate email format
+if (!filter_var($studentEmail, FILTER_VALIDATE_EMAIL)) {
+    $_SESSION['error'] = 'Please enter a valid email address.';
+    $redirectUrl = $programId > 0 ? '../feedback.php?id=' . $programId : '../feedback.php';
+    header('Location: ' . $redirectUrl);
+    exit;
+}
+
+// Get program name
+try {
+    $progStmt = $pdo->prepare("SELECT program_name FROM programs WHERE id = ? LIMIT 1");
+    $progStmt->execute([$programId]);
+    $program = $progStmt->fetch();
+    
+    if (!$program) {
+        $_SESSION['error'] = 'Invalid program selected.';
+        header('Location: ../feedback.php');
+        exit;
+    }
+    
+    $programName = $program['program_name'];
+} catch (PDOException $e) {
+    error_log("Submit Feedback Error: " . $e->getMessage());
+    $_SESSION['error'] = 'An error occurred. Please try again.';
+    $redirectUrl = $programId > 0 ? '../feedback.php?id=' . $programId : '../feedback.php';
+    header('Location: ' . $redirectUrl);
     exit;
 }
 
@@ -28,42 +62,39 @@ if ($rating < 1 || $rating > 5) {
     exit;
 }
 
-// Prepare data
-$feedbackData = [
-    'studentName' => $studentName,
-    'program' => $program,
-    'rating' => $rating,
-    'feedback' => $feedback,
-    'suggestions' => $suggestions,
-    'timestamp' => date('Y-m-d H:i:s')
-];
+// Sanitize feedback and suggestions separately
+$feedbackText = trim($feedback);
+$suggestionsText = trim($suggestions);
 
-// Save to JSON file
-$dataDir = '../data';
-$dataFile = $dataDir . '/feedback.json';
-
-// Create data directory if it doesn't exist
-if (!file_exists($dataDir)) {
-    mkdir($dataDir, 0755, true);
+// Check if feedback already exists for this email and program
+try {
+    $checkStmt = $pdo->prepare("SELECT id FROM feedback WHERE email = ? AND program_id = ? LIMIT 1");
+    $checkStmt->execute([$studentEmail, $programId]);
+    if ($checkStmt->fetch()) {
+        $_SESSION['error'] = 'You have already submitted feedback for this program.';
+        header('Location: ../feedback.php?id=' . $programId);
+        exit;
+    }
+} catch (PDOException $e) {
+    error_log("Check Feedback Error: " . $e->getMessage());
 }
 
-// Read existing data
-$existingData = [];
-if (file_exists($dataFile)) {
-    $jsonContent = file_get_contents($dataFile);
-    $existingData = json_decode($jsonContent, true) ?? [];
+// Insert into database table (feedback table)
+// Insert feedback and suggestions as separate fields
+try {
+    $insertStmt = $pdo->prepare("INSERT INTO feedback (student_name, email, program, program_id, rating, comments, suggestions, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+    $insertStmt->execute([$studentName, $studentEmail, $programName, $programId, $rating, $feedbackText, $suggestionsText]);
+    
+    // Set success message
+    $_SESSION['feedback_success'] = true;
+    
+    // Redirect back to feedback page with program ID
+    header('Location: ../feedback.php?id=' . $programId);
+    exit;
+} catch (PDOException $e) {
+    error_log("Insert Feedback Error: " . $e->getMessage());
+    $_SESSION['error'] = 'An error occurred while submitting feedback. Please try again.';
+    header('Location: ../feedback.php?id=' . $programId);
+    exit;
 }
-
-// Add new feedback
-$existingData[] = $feedbackData;
-
-// Save to file
-file_put_contents($dataFile, json_encode($existingData, JSON_PRETTY_PRINT));
-
-// Set success message
-$_SESSION['feedback_success'] = true;
-
-// Redirect back to feedback page
-header('Location: ../feedback.php');
-exit;
 ?>
