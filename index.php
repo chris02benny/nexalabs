@@ -126,8 +126,10 @@
   </div>
 </section>
 
+<!-- Full-page dark theme: same design as hero for all index sections -->
+<div class="page-dark-sections">
 <!-- Stats Section -->
-<section class="stats-section-fullscreen position-relative">
+<section class="stats-section-fullscreen position-relative page-dark-section">
   <div class="section-container">
     <div class="text-center mb-5" data-animate>
       <span class="badge badge-purple mb-3">Our Impact</span>
@@ -164,7 +166,7 @@
 </section>
 
 <!-- Programmes Offered Section -->
-<section class="programs-section-fullscreen position-relative">
+<section class="programs-section-fullscreen position-relative page-dark-section">
   <div class="section-container">
     <div class="text-center mb-5" data-animate>
       <span class="badge badge-purple mb-3">Our Programs</span>
@@ -336,7 +338,7 @@
 </div>
 
 <!-- Learner Groups Section -->
-<section class="stats-section-fullscreen position-relative">
+<section class="stats-section-fullscreen position-relative page-dark-section">
   <div class="section-container-wide">
     <div class="text-center mb-5" data-animate>
       <span class="badge badge-purple mb-3">Who We Serve</span>
@@ -410,7 +412,7 @@
 </section>
 
 <!-- CTA Section -->
-<section class="cta-section position-relative">
+<section class="cta-section position-relative page-dark-section">
   <div class="section-container">
     <div class="text-center" data-animate>
       <h2 class="display-3 fw-bold mb-3">Ready to Start <span class="gradient-text">Your Journey?</span></h2>
@@ -428,5 +430,7 @@
     </div>
   </div>
 </section>
+
+</div><!-- .page-dark-sections -->
 
 <?php include 'includes/footer.php'; ?>

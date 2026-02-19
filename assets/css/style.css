@@ -1492,6 +1492,267 @@ footer a:hover {
 }
 
 /* ============================================
+   FULL PAGE DARK THEME (index – same as hero)
+   ============================================ */
+
+.page-dark-sections {
+  background: linear-gradient(180deg, #0a0e1a 0%, #0d1321 50%, #0a0e1a 100%);
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+}
+
+.page-dark-sections::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page-dark-section {
+  position: relative;
+  z-index: 1;
+  background: transparent !important;
+}
+
+.page-dark-section.stats-section-fullscreen::before,
+.page-dark-section.stats-section-fullscreen::after,
+.page-dark-section.programs-section-fullscreen::before,
+.page-dark-section.programs-section-fullscreen::after {
+  background: none !important;
+}
+
+/* Section titles: same style as hero headline */
+.page-dark-section.stats-section-fullscreen h2,
+.page-dark-section.programs-section-fullscreen h2,
+.page-dark-section.cta-section h2 {
+  color: #fff !important;
+  font-size: clamp(1.75rem, 4vw, 2.75rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.page-dark-section.stats-section-fullscreen .gradient-text-purple,
+.page-dark-section.programs-section-fullscreen .gradient-text-purple,
+.page-dark-section.cta-section .gradient-text {
+  background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 50%, #818cf8 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+
+.page-dark-section .text-muted,
+.page-dark-section.stats-section-fullscreen p,
+.page-dark-section.programs-section-fullscreen p,
+.page-dark-section.cta-section p {
+  color: rgba(255, 255, 255, 0.72) !important;
+}
+
+/* Badges: same as hero panel headers */
+.page-dark-section .badge-purple {
+  background: rgba(59, 130, 246, 0.2) !important;
+  color: #93c5fd !important;
+  border: 1px solid rgba(59, 130, 246, 0.35) !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+/* Same panel design as hero-3d-panel: glass, border, shadow, float animation */
+.page-dark-section .glass-card {
+  background: rgba(15, 23, 42, 0.65) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  border-radius: 0.75rem !important;
+  padding: 1.25rem 1.5rem !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+  animation: heroPanelFloat 6s ease-in-out infinite;
+}
+
+.page-dark-section .row .col-md-4:nth-child(1) .glass-card,
+.page-dark-section .row .col-lg-4:nth-child(1) .glass-card { animation-delay: 0s; }
+.page-dark-section .row .col-md-4:nth-child(2) .glass-card,
+.page-dark-section .row .col-lg-4:nth-child(2) .glass-card { animation-delay: 1s; }
+.page-dark-section .row .col-md-4:nth-child(3) .glass-card,
+.page-dark-section .row .col-lg-4:nth-child(3) .glass-card { animation-delay: 2s; }
+.page-dark-section .swiper-slide .glass-card { animation-delay: 0s; }
+.page-dark-section .swiper-slide:nth-child(2) .glass-card { animation-delay: 0.5s; }
+.page-dark-section .swiper-slide:nth-child(3) .glass-card { animation-delay: 1s; }
+.page-dark-section .swiper-slide:nth-child(4) .glass-card { animation-delay: 1.5s; }
+.page-dark-section .swiper-slide:nth-child(5) .glass-card { animation-delay: 2s; }
+
+.page-dark-section .glass-card:hover {
+  border-color: rgba(59, 130, 246, 0.35) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 24px rgba(59, 130, 246, 0.15) !important;
+}
+
+.page-dark-section .stats-value { color: #fff !important; }
+.page-dark-section .stats-label { color: rgba(255, 255, 255, 0.7) !important; }
+.page-dark-section .stats-value.gradient-text-purple {
+  background: linear-gradient(135deg, #60a5fa, #a78bfa) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}
+.page-dark-section .glass-card .bi { color: #60a5fa !important; }
+
+.page-dark-section.programs-section-fullscreen .glass-card {
+  background: rgba(15, 23, 42, 0.65) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+}
+.page-dark-section .program-detail-title {
+  color: #fff !important; background: none !important; -webkit-text-fill-color: #fff !important;
+}
+.page-dark-section .program-section-title {
+  color: #93c5fd !important; background: none !important; -webkit-text-fill-color: #93c5fd !important;
+}
+.page-dark-section .program-list li { color: rgba(255, 255, 255, 0.85) !important; }
+.page-dark-section .program-list li::before { color: #60a5fa; }
+.page-dark-section .btn-robotics-details {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+  border-radius: 0.5rem !important;
+}
+.page-dark-section .btn-robotics-details:hover {
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5) !important;
+  transform: translateY(-2px);
+}
+.page-dark-section .btn-purple {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+  border-radius: 0.5rem !important;
+  padding: 0.875rem 1.75rem !important;
+}
+.page-dark-section .btn-purple:hover {
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5) !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+}
+
+.page-dark-section .learner-group-title { color: #fff !important; }
+.page-dark-section .learner-group-description { color: rgba(255, 255, 255, 0.75) !important; }
+.page-dark-section .learner-group-card .bi { color: #60a5fa !important; }
+
+.page-dark-section.cta-section { background: transparent !important; }
+.page-dark-section.cta-section::before { display: none; }
+/* CTA buttons: same as hero-3d-cta */
+.page-dark-section.cta-section .btn-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4) !important;
+  border-radius: 0.5rem !important;
+  padding: 0.875rem 1.75rem !important;
+}
+.page-dark-section.cta-section .btn-primary:hover {
+  box-shadow: 0 8px 30px rgba(59, 130, 246, 0.5) !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+}
+.page-dark-section.cta-section .btn-secondary {
+  background: transparent !important;
+  border: 2px solid rgba(59, 130, 246, 0.6) !important;
+  color: #93c5fd !important;
+  border-radius: 0.5rem !important;
+  padding: 0.875rem 1.75rem !important;
+}
+.page-dark-section.cta-section .btn-secondary:hover {
+  background: rgba(59, 130, 246, 0.15) !important;
+  border-color: rgba(59, 130, 246, 0.8) !important;
+  color: #fff !important;
+  transform: translateY(-2px);
+}
+
+.page-dark-section .learner-groups-next,
+.page-dark-section .learner-groups-prev {
+  color: #93c5fd !important;
+  background: rgba(15, 23, 42, 0.8) !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
+}
+.page-dark-section .learner-groups-next:hover,
+.page-dark-section .learner-groups-prev:hover {
+  background: linear-gradient(135deg, #3b82f6, #6366f1) !important;
+  color: #fff !important;
+}
+.page-dark-section .swiper-pagination-bullet { background: rgba(59, 130, 246, 0.4) !important; }
+.page-dark-section .swiper-pagination-bullet-active {
+  background: linear-gradient(135deg, #3b82f6, #6366f1) !important;
+}
+
+.page-dark-section.stats-section-fullscreen::after {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: -10%;
+  right: -5%;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.25;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.page-dark-section.programs-section-fullscreen::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  top: -15%;
+  right: -10%;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.25;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.25) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.page-dark-section.programs-section-fullscreen::after {
+  content: '';
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  bottom: -10%;
+  left: -5%;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.25;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.2) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Index page footer: same dark theme */
+body.page-hero-dark footer {
+  background: #0a0e1a !important;
+  border-top: 1px solid rgba(59, 130, 246, 0.15);
+}
+body.page-hero-dark footer h5,
+body.page-hero-dark footer h6,
+body.page-hero-dark footer p,
+body.page-hero-dark footer .footer-links,
+body.page-hero-dark footer .footer-links li {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+body.page-hero-dark footer a {
+  color: rgba(255, 255, 255, 0.85);
+}
+body.page-hero-dark footer a:hover {
+  color: #60a5fa;
+}
+body.page-hero-dark footer hr {
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ============================================
    BADGE STYLES
    ============================================ */
 
@@ -3255,4 +3516,57 @@ html {
   .learner-groups-prev {
     display: none !important;
   }
+}
+
+/* Force full-page dark theme on index – overrides any later base section styles (specificity + order) */
+body.page-hero-dark .page-dark-sections {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0a0e1a 0%, #0d1321 50%, #0a0e1a 100%) !important;
+  position: relative;
+  z-index: 0;
+}
+body.page-hero-dark .page-dark-sections .stats-section-fullscreen,
+body.page-hero-dark .page-dark-sections .programs-section-fullscreen,
+body.page-hero-dark .page-dark-sections .cta-section {
+  background: transparent !important;
+  position: relative;
+  z-index: 1;
+}
+body.page-hero-dark .page-dark-sections .stats-section-fullscreen::before,
+body.page-hero-dark .page-dark-sections .programs-section-fullscreen::before {
+  background: none !important;
+  box-shadow: none !important;
+}
+body.page-hero-dark .page-dark-sections .cta-section::before {
+  display: none !important;
+  background: none !important;
+}
+/* Cards: base .stats-section-fullscreen .glass-card etc. come later – override with higher specificity */
+body.page-hero-dark .page-dark-sections .glass-card {
+  background: rgba(15, 23, 42, 0.65) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+}
+body.page-hero-dark .page-dark-sections .glass-card:hover {
+  border-color: rgba(59, 130, 246, 0.35) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 24px rgba(59, 130, 246, 0.15) !important;
+}
+body.page-hero-dark .page-dark-sections .glass-card::before {
+  display: none !important;
+  background: none !important;
+}
+body.page-hero-dark .page-dark-sections .section-container,
+body.page-hero-dark .page-dark-sections .section-container-wide {
+  background: transparent !important;
+}
+body.page-hero-dark .page-dark-sections .learner-group-card {
+  background: rgba(15, 23, 42, 0.65) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+body.page-hero-dark .page-dark-sections .learner-group-card::before {
+  background: none !important;
+  display: none !important;
 }
