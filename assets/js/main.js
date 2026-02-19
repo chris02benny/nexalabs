@@ -1,5 +1,57 @@
 // NEXA FUTURE READY LAB - Main JavaScript
 
+// Hero 3D Particles
+function initHeroParticles() {
+  const container = document.getElementById('heroParticles');
+  if (!container) return;
+
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;pointer-events:none;';
+  container.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  const count = 80;
+
+  function resize() {
+    const hero = container.closest('.hero-3d');
+    const w = hero ? hero.offsetWidth : window.innerWidth;
+    const h = hero ? hero.offsetHeight : window.innerHeight;
+    canvas.width = w;
+    canvas.height = h;
+    particles = [];
+    for (let i = 0; i < count; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2 + 0.5,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        opacity: Math.random() * 0.5 + 0.2
+      });
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach(p => {
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(59, 130, 246, ${p.opacity})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  animate();
+}
+
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', function () {
     const navbarToggler = document.querySelector('.navbar-toggler');
@@ -144,6 +196,7 @@ function initLearnerGroupsSwiper() {
 
 // Initialize on page load
 window.addEventListener('load', function () {
+    initHeroParticles();
     initFloatingElements();
     initSpotlightCards();
     initLearnerGroupsSwiper();
