@@ -30,7 +30,8 @@ $current_page = basename($_SERVER['PHP_SELF'], '.php');
   <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body class="<?php echo $current_page === 'index' ? 'page-hero-dark' : ''; ?>">
+<body class="<?php echo in_array($current_page, ['index', 'programs', 'about', 'enquiry']) ? 'page-hero-dark' : ''; ?><?php echo in_array($current_page, ['login', 'admin_register']) ? ' login-page' : ''; ?>">
+  <?php if (!in_array($current_page, ['login', 'admin_register'])): ?>
   <!-- Navigation -->
   <nav class="navbar">
     <div class="navbar-container">
@@ -50,12 +51,11 @@ $current_page = basename($_SERVER['PHP_SELF'], '.php');
         <li><a href="index" class="nav-link <?php echo $current_page == 'index' ? 'active' : ''; ?>">Home</a></li>
         <li><a href="programs" class="nav-link <?php echo $current_page == 'programs' ? 'active' : ''; ?>">Programs</a></li>
         <li><a href="about" class="nav-link <?php echo $current_page == 'about' ? 'active' : ''; ?>">About</a></li>
-        <li><a href="register" class="nav-link <?php echo $current_page == 'register' ? 'active' : ''; ?>">Register</a></li>
         <li><a href="enquiry" class="nav-link <?php echo $current_page == 'enquiry' ? 'active' : ''; ?>">Enquiry</a></li>
-        <li><a href="feedback" class="nav-link <?php echo $current_page == 'feedback' ? 'active' : ''; ?>">Feedback</a></li>
       </ul>
     </div>
   </nav>
+  <?php endif; ?>
   
   <!-- Main Content -->
   <main style="padding-top: 0px;">

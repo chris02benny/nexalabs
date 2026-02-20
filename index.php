@@ -1,8 +1,24 @@
-<?php include 'includes/header.php'; ?>
+<?php 
+require_once 'includes/db_connection.php';
+require_once 'includes/programs_helper.php';
 
-<!-- Hero Section - DataCore-style 3D Glassmorphism -->
-<section class="hero-3d">
-  <!-- Dark background with gradient glow -->
+// Get PDO connection
+$pdo = isset($GLOBALS['pdo']) ? $GLOBALS['pdo'] : require_once 'includes/db_connection.php';
+$allPrograms = getActivePrograms($pdo);
+$categorizedPrograms = categorizePrograms($allPrograms);
+
+// Get featured programs (first 3 from registration_open or upcoming)
+$featuredPrograms = array_merge(
+    array_slice($categorizedPrograms['registration_open'], 0, 3),
+    array_slice($categorizedPrograms['upcoming'], 0, 3 - count($categorizedPrograms['registration_open']))
+);
+
+include 'includes/header.php'; 
+?>
+
+<!-- Hero Section: moving bg + coding / AI / robotics 3D elements -->
+<section class="hero-3d hero-3d-flat">
+  <!-- Keep: moving background (particles, glow, grid) -->
   <div class="hero-3d-bg">
     <div class="hero-3d-particles" id="heroParticles"></div>
     <div class="hero-3d-glow hero-3d-glow-1"></div>
@@ -11,63 +27,21 @@
     <div class="hero-3d-grid"></div>
   </div>
 
-  <div class="hero-3d-content">
-    <!-- Centered hero text -->
-    <div class="hero-3d-headline">
-      <h1 class="hero-3d-title">Building Skills for <span class="hero-3d-gradient">Tomorrow's World</span></h1>
-      <p class="hero-3d-subtitle">NEXA Future Ready Lab is a next-generation learning ecosystem that prepares students, educators, and professionals for emerging technologies through hands-on, industry-aligned learning.</p>
-      <div class="hero-3d-cta-wrap">
-        <a href="programs" class="hero-3d-cta">Explore Programs <i class="bi bi-arrow-right"></i></a>
-        <a href="register" class="hero-3d-cta hero-3d-cta-outline">Register Now</a>
-      </div>
-    </div>
-
-    <!-- Left column panels -->
-    <div class="hero-3d-panel hero-3d-panel-code">
-      <div class="hero-3d-panel-header">// Type some code →</div>
+  <!-- Coding / AI / Robotics 3D theme elements -->
+  <div class="hero-3d-theme-elements" aria-hidden="true">
+    <!-- Coding: code snippet panel -->
+    <div class="hero-3d-panel hero-3d-panel-code hero-3d-theme-coding">
+      <div class="hero-3d-panel-header">Coding</div>
       <div class="hero-3d-code">
-        <span class="code-line"><span class="code-num">1</span><span class="code-keyword">const</span> lab = <span class="code-string">"NEXA"</span>;</span>
-        <span class="code-line"><span class="code-num">2</span><span class="code-keyword">await</span> lab.<span class="code-fn">learn</span>(<span class="code-string">"XR"</span>, <span class="code-string">"AI"</span>);</span>
-        <span class="code-line"><span class="code-num">3</span><span class="code-comment">// Future-ready skills</span></span>
+        <span class="code-line"><span class="code-num">1</span><span class="code-keyword">def</span> <span class="code-fn">train_model</span>(data):</span>
+        <span class="code-line"><span class="code-num">2</span>  <span class="code-keyword">for</span> x <span class="code-keyword">in</span> data:</span>
+        <span class="code-line"><span class="code-num">3</span>    <span class="code-keyword">yield</span> <span class="code-fn">predict</span>(<span class="code-string">"AI"</span>, x)</span>
+        <span class="code-line"><span class="code-num">4</span>  <span class="code-comment"># NEXA Lab</span></span>
       </div>
     </div>
-
-    <div class="hero-3d-panel hero-3d-panel-logs">
-      <div class="hero-3d-panel-header">Database Logs</div>
-      <div class="hero-3d-logs">
-        <div class="log-line"><span class="log-time">14:2:09</span> - <span class="log-info">INFO</span></div>
-        <div class="log-line"><span class="log-time">14:2:09</span> - <span class="log-query">QUERY DATA</span></div>
-        <div class="log-line"><span class="log-time">14:2:10</span> - <span class="log-info">CONNECTED</span></div>
-      </div>
-      <div class="hero-3d-scan-beam"></div>
-    </div>
-
-    <!-- Floating glass panels - center/right -->
-    <div class="hero-3d-panel hero-3d-panel-pipeline">
-      <div class="hero-3d-panel-header">Learning Pipeline</div>
-      <div class="hero-3d-flow">
-        <div class="flow-box">Ingest Sources</div>
-        <div class="flow-box">Transform Data</div>
-        <div class="flow-row">
-          <div class="flow-box">Orchestrate</div>
-          <div class="flow-box">Execute</div>
-        </div>
-        <a href="programs" class="flow-cta">Output via API</a>
-      </div>
-    </div>
-
-    <div class="hero-3d-panel hero-3d-panel-compliance">
-      <div class="hero-3d-panel-header">Progress Tracking</div>
-      <div class="hero-3d-progress">
-        <div class="progress-row"><span>Overdue</span><span>3%</span></div>
-        <div class="progress-row"><span>Pending</span><span>14%</span></div>
-        <div class="progress-row"><span>Completed</span><span>86%</span></div>
-      </div>
-    </div>
-
-    <!-- 3D AI/Data sphere panel -->
-    <div class="hero-3d-panel hero-3d-panel-sphere">
-      <div class="hero-3d-panel-header">AI & Data Layer</div>
+    <!-- AI: neural / sphere panel -->
+    <div class="hero-3d-panel hero-3d-panel-sphere hero-3d-theme-ai">
+      <div class="hero-3d-panel-header">AI</div>
       <div class="hero-3d-sphere-wrap">
         <div class="hero-3d-sphere">
           <div class="sphere-inner"></div>
@@ -77,43 +51,31 @@
         </div>
       </div>
     </div>
-
-    <!-- Engagement / Stats meter -->
-    <div class="hero-3d-panel hero-3d-panel-engagement">
-      <div class="hero-3d-engagement-value">82</div>
-      <div class="hero-3d-engagement-title">Engagement</div>
-      <div class="hero-3d-bars">
-        <div class="eng-bar" style="--w: 70%"></div>
-        <div class="eng-bar" style="--w: 85%"></div>
-        <div class="eng-bar" style="--w: 60%"></div>
-        <div class="eng-bar" style="--w: 90%"></div>
+    <!-- Robotics: status panel + gear icon -->
+    <div class="hero-3d-panel hero-3d-panel-compliance hero-3d-theme-robotics">
+      <div class="hero-3d-panel-header">Robotics</div>
+      <div class="hero-3d-progress">
+        <div class="progress-row"><span>Arm</span><span>98%</span></div>
+        <div class="eng-bar" style="--w: 98%;"></div>
+        <div class="progress-row"><span>Vision</span><span>85%</span></div>
+        <div class="eng-bar" style="--w: 85%;"></div>
+        <div class="progress-row"><span>Logic</span><span>92%</span></div>
+        <div class="eng-bar" style="--w: 92%;"></div>
       </div>
     </div>
+    <div class="hero-3d-float-icon hero-3d-icon-code hero-3d-theme-icon-coding"><i class="bi bi-code-slash"></i></div>
+    <div class="hero-3d-float-icon hero-3d-icon-ai hero-3d-theme-icon-ai"><i class="bi bi-cpu"></i></div>
+    <div class="hero-3d-float-icon hero-3d-icon-robot hero-3d-theme-icon-robot"><i class="bi bi-robot"></i></div>
+  </div>
 
-    <!-- Score dial -->
-    <div class="hero-3d-panel hero-3d-panel-score">
-      <div class="hero-3d-score-value">72</div>
-      <div class="hero-3d-score-label">score</div>
-      <svg class="hero-3d-score-ring" viewBox="0 0 100 100">
-        <defs>
-          <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#3b82f6"/>
-            <stop offset="100%" style="stop-color:#6366f1"/>
-          </linearGradient>
-        </defs>
-        <circle class="score-bg" cx="50" cy="50" r="45"/>
-        <circle class="score-fill" cx="50" cy="50" r="45" style="stroke-dasharray: 212 283; stroke-dashoffset: 71; stroke: url(#scoreGradient)"/>
-      </svg>
+  <div class="hero-3d-content">
+    <div class="hero-3d-headline">
+      <h1 class="hero-3d-title">Building Skills for <span class="hero-3d-gradient">Tomorrow's World</span></h1>
+      <p class="hero-3d-subtitle">NEXA Future Ready Lab is a next-generation learning ecosystem that prepares students, educators, and professionals for emerging technologies through hands-on, industry-aligned learning.</p>
+      <div class="hero-3d-cta-wrap">
+        <a href="programs" class="hero-3d-cta">Explore Programs <i class="bi bi-arrow-right"></i></a>
+      </div>
     </div>
-
-    <!-- Floating 3D icons -->
-    <div class="hero-3d-float-icon hero-3d-icon-cloud"><i class="bi bi-cloud"></i></div>
-    <div class="hero-3d-float-icon hero-3d-icon-db"><i class="bi bi-database"></i></div>
-    <div class="hero-3d-float-icon hero-3d-icon-gear"><i class="bi bi-gear"></i></div>
-    <div class="hero-3d-float-icon hero-3d-icon-code"><i class="bi bi-code-slash"></i></div>
-    <div class="hero-3d-float-icon hero-3d-icon-globe"><i class="bi bi-globe"></i></div>
-
-    <!-- Stats bar at bottom -->
     <div class="hero-3d-stats">
       <div class="hero-3d-stat"><span class="hero-3d-stat-val">5,000+</span> STUDENTS</div>
       <div class="hero-3d-stat"><span class="hero-3d-stat-val">25+</span> PROGRAMS</div>
@@ -167,8 +129,8 @@
 
 <!-- Programmes Offered Section -->
 <section class="programs-section-fullscreen position-relative page-dark-section">
-  <div class="section-container">
-    <div class="text-center mb-5" data-animate>
+  <div class="section-container section-container-wide">
+    <div class="programs-section-header text-center mb-5 d-flex flex-column align-items-center" data-animate>
       <span class="badge badge-purple mb-3">Our Programs</span>
       <h2 class="display-4 fw-bold mb-3">
         Programmes <span class="gradient-text-purple">Offered</span>
@@ -178,111 +140,77 @@
       </p>
     </div>
     
-    <div class="row g-4">
-      <?php
-      $featuredPrograms = [
-        [
-          'title' => 'Extended Reality (XR): AR & VR',
-          'focusAreas' => [
-            'Augmented Reality (AR) Development',
-            'Virtual Reality (VR) Development',
-            'Immersive Simulations & Interactive Experiences'
-          ],
-          'applications' => [
-            'Education & Training',
-            'Industrial Visualization',
-            'Smart Maintenance & Field Services',
-            'Cultural & Heritage Experiences',
-            'Engineering & Scientific Simulations',
-            'Skill Training & Safety Drills',
-            'Healthcare & Rehabilitation',
-            'Design Visualization & Gaming'
-          ],
-          'outcome' => 'Develops immersive application design skills, spatial thinking, and the ability to build interactive XR-based learning, training, and visualization solutions.',
-          'icon' => 'badge-vr',
-          'color' => 'purple'
-        ],
-        [
-          'title' => 'Robotics & Intelligent Systems',
-          'focusAreas' => [
-            'Industrial Robotics',
-            'Humanoid Robots',
-            'Drones & Autonomous Systems',
-            'AI-Enabled Robotics',
-            'Robot Operating System (ROS & ROS2)'
-          ],
-          'applications' => [
-            'Industrial Automation',
-            'Smart Manufacturing',
-            'Autonomous Navigation',
-            'Human–Robot Interaction',
-            'Research & Development'
-          ],
-          'outcome' => 'Builds hands-on expertise in robotics systems, automation, autonomy, and intelligent machine control using industry-grade platforms.',
-          'icon' => 'robot',
-          'color' => 'cyan'
-        ],
-        [
-          'title' => 'Programming Foundations',
-          'focusAreas' => [
-            'C Programming Essentials',
-            'Python for Beginners',
-            'MySQL Mastery Bootcamp'
-          ],
-          'applications' => [
-            'Software Development Foundations',
-            'Data Processing & Automation',
-            'Backend and Database Systems'
-          ],
-          'outcome' => 'Develops strong algorithmic thinking, problem-solving ability, and database fundamentals essential for advanced technology domains.',
-          'icon' => 'code-slash',
-          'color' => 'orange'
-        ],
-      ];
-      
-      foreach ($featuredPrograms as $index => $program):
+    <div class="row g-4 justify-content-center align-items-stretch">
+      <?php if (empty($featuredPrograms)): ?>
+      <div class="col-12 text-center py-5">
+        <i class="bi bi-book" style="font-size: 3rem; color: var(--muted-foreground);"></i>
+        <p class="text-muted mt-3">No programs available at the moment. Check back soon!</p>
+      </div>
+      <?php else: ?>
+      <?php foreach ($featuredPrograms as $index => $program): 
+        $regStart = $program['reg_start_date'] ?? null;
+        $regEnd = $program['reg_end_date'] ?? null;
+        $progStart = $program['program_start_date'] ?? null;
+        $progEnd = $program['program_end_date'] ?? null;
+        $programDays = calculateProgramDays($progStart, $progEnd);
       ?>
-      <div class="col-lg-4" data-animate>
-        <div class="glass-card program-detail-card p-4 robotics-card">
-          <h4 class="program-detail-title mb-3"><?php echo $program['title']; ?></h4>
-          
-          <div class="program-preview mb-4">
-            <div class="program-section mb-3">
-              <h6 class="program-section-title">Programmes / Focus Areas</h6>
-              <ul class="program-list">
-                <?php foreach (array_slice($program['focusAreas'], 0, 3) as $area): ?>
-                <li><?php echo $area; ?></li>
-                <?php endforeach; ?>
-              </ul>
-            </div>
-            
-            <div class="program-section mb-3">
-              <h6 class="program-section-title">Applications</h6>
-              <ul class="program-list">
-                <?php foreach (array_slice($program['applications'], 0, 4) as $app): ?>
-                <li><?php echo $app; ?></li>
-                <?php endforeach; ?>
-              </ul>
-            </div>
+      <div class="col-12 col-sm-6 col-lg-6 d-flex" data-animate>
+        <div class="glass-card program-detail-card p-4 w-100 d-flex flex-column">
+          <div class="program-detail-card-badge mb-3 flex-shrink-0">
+            <?php echo getProgramStatusBadge($program); ?>
           </div>
           
-          <button class="btn-robotics-details w-100 mt-auto" onclick="openProgramModal(<?php echo $index; ?>)">
-            <span>More Details</span>
-            <i class="bi bi-arrow-right"></i>
-          </button>
+          <h4 class="program-detail-title mb-3 flex-shrink-0"><?php echo htmlspecialchars($program['program_name']); ?></h4>
+          
+          <div class="program-info flex-grow-1 mb-0">
+            <?php if ($regStart && $regEnd): ?>
+            <div class="mb-3">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-calendar-event me-2 text-primary"></i>
+                <strong class="text-muted small">Registration Period:</strong>
+              </div>
+              <div class="ms-4 program-info-values">
+                <span class="program-info-value"><?php echo date('M d, Y', strtotime($regStart)); ?></span>
+                <span class="program-date-sep"> – </span>
+                <span class="program-info-value"><?php echo date('M d, Y', strtotime($regEnd)); ?></span>
+              </div>
+            </div>
+            <?php endif; ?>
+            
+            <?php if ($progStart && $progEnd): ?>
+            <div class="mb-3">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-calendar-check me-2 text-success"></i>
+                <strong class="text-muted small">Course Period:</strong>
+              </div>
+              <div class="ms-4 program-info-values">
+                <span class="program-info-value"><?php echo date('M d, Y', strtotime($progStart)); ?></span>
+                <span class="program-date-sep"> – </span>
+                <span class="program-info-value"><?php echo date('M d, Y', strtotime($progEnd)); ?></span>
+              </div>
+            </div>
+            <?php endif; ?>
+            
+            <?php if ($programDays): ?>
+            <div class="mb-3">
+              <div class="d-flex align-items-center mb-1">
+                <i class="bi bi-clock me-2 text-info"></i>
+                <strong class="text-muted small">Duration:</strong>
+              </div>
+              <div class="ms-4">
+                <span class="program-info-value fw-bold"><?php echo $programDays; ?> <?php echo $programDays == 1 ? 'Day' : 'Days'; ?></span>
+              </div>
+            </div>
+            <?php endif; ?>
+          </div>
+          
+          <a href="program_details.php?id=<?php echo $program['id']; ?>" class="btn-primary w-100 mt-auto flex-shrink-0" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center;">
+            View More <i class="bi bi-arrow-right ms-2"></i>
+          </a>
         </div>
       </div>
-      
-      <!-- Modal Data (hidden) -->
-      <div class="program-modal-data" id="program-data-<?php echo $index; ?>" style="display: none;">
-        <div class="program-modal-title"><?php echo $program['title']; ?></div>
-        <div class="program-modal-icon"><?php echo $program['icon']; ?></div>
-        <div class="program-modal-color"><?php echo $program['color']; ?></div>
-        <div class="program-modal-focus-areas"><?php echo json_encode($program['focusAreas']); ?></div>
-        <div class="program-modal-applications"><?php echo json_encode($program['applications']); ?></div>
-        <div class="program-modal-outcome"><?php echo $program['outcome']; ?></div>
-      </div>
       <?php endforeach; ?>
+      <?php endif; ?>
     </div>
     
     <div class="text-center mt-5" data-animate>
@@ -307,6 +235,32 @@
         </button>
       </div>
       <div class="modal-body robotics-modal-body">
+        <div class="program-info-section mb-4" id="modalProgramInfo" style="display: none;">
+          <div class="mb-3" id="modalRegPeriod" style="display: none;">
+            <div class="d-flex align-items-center mb-1">
+              <i class="bi bi-calendar-event me-2 text-primary"></i>
+              <strong class="text-dark small">Registration Period:</strong>
+            </div>
+            <div class="ms-4 text-dark" id="modalRegPeriodDates"></div>
+          </div>
+          
+          <div class="mb-3" id="modalCoursePeriod" style="display: none;">
+            <div class="d-flex align-items-center mb-1">
+              <i class="bi bi-calendar-check me-2 text-success"></i>
+              <strong class="text-dark small">Course Period:</strong>
+            </div>
+            <div class="ms-4 text-dark" id="modalCoursePeriodDates"></div>
+          </div>
+          
+          <div class="mb-3" id="modalDuration" style="display: none;">
+            <div class="d-flex align-items-center mb-1">
+              <i class="bi bi-clock me-2 text-info"></i>
+              <strong class="text-dark small">Duration:</strong>
+            </div>
+            <div class="ms-4 text-dark fw-bold" id="modalDurationDays"></div>
+          </div>
+        </div>
+        
         <div class="program-section mb-4">
           <h6 class="program-section-title">
             <i class="bi bi-gear-fill me-2"></i>Programmes / Focus Areas

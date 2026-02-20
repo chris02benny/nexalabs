@@ -1,209 +1,201 @@
-<?php include 'includes/header.php'; ?>
+<?php 
+require_once 'includes/db_connection.php';
+require_once 'includes/programs_helper.php';
 
-<!-- Hero Section -->
-<section class="py-5 grid-bg" style="padding: 6rem 0 4rem;">
-  <div class="section-container">
-    <div class="text-center mx-auto slide-in-left" style="max-width: 800px;">
-      <span class="badge badge-purple mb-4">
-        🎓 All Programmes
-      </span>
-      
-      <h1 class="display-3 fw-bold mb-4">
-        Programmes <span class="gradient-text-purple">Offered</span>
-      </h1>
-      
-      <p class="text-muted fs-5">
-        All programmes follow a <strong>Learn – Build – Deploy</strong> approach, combining conceptual understanding with hands-on practice and real-world application.
-      </p>
-    </div>
-  </div>
-</section>
+// Get PDO connection
+$pdo = isset($GLOBALS['pdo']) ? $GLOBALS['pdo'] : require_once 'includes/db_connection.php';
+$allPrograms = getActivePrograms($pdo);
+$categorizedPrograms = categorizePrograms($allPrograms);
 
-<!-- All Programs Grid -->
-<section class="py-5" style="padding: 5rem 0;">
-  <div class="section-container">
-    <div class="row g-4">
-      <?php
-      $allPrograms = [
-        [
-          'title' => 'Extended Reality (XR): AR & VR',
-          'focusAreas' => [
-            'Augmented Reality (AR) Development',
-            'Virtual Reality (VR) Development',
-            'Immersive Simulations & Interactive Experiences'
-          ],
-          'applications' => [
-            'Education & Training',
-            'Industrial Visualization',
-            'Smart Maintenance & Field Services',
-            'Cultural & Heritage Experiences',
-            'Engineering & Scientific Simulations',
-            'Skill Training & Safety Drills',
-            'Healthcare & Rehabilitation',
-            'Design Visualization & Gaming'
-          ],
-          'outcome' => 'Develops immersive application design skills, spatial thinking, and the ability to build interactive XR-based learning, training, and visualization solutions.',
-          'icon' => 'badge-vr',
-          'color' => 'purple'
-        ],
-        [
-          'title' => 'Robotics & Intelligent Systems',
-          'focusAreas' => [
-            'Industrial Robotics',
-            'Humanoid Robots',
-            'Drones & Autonomous Systems',
-            'AI-Enabled Robotics',
-            'Robot Operating System (ROS & ROS2)'
-          ],
-          'applications' => [
-            'Industrial Automation',
-            'Smart Manufacturing',
-            'Autonomous Navigation',
-            'Human–Robot Interaction',
-            'Research & Development'
-          ],
-          'outcome' => 'Builds hands-on expertise in robotics systems, automation, autonomy, and intelligent machine control using industry-grade platforms.',
-          'icon' => 'robot',
-          'color' => 'cyan'
-        ],
-        [
-          'title' => 'Programming Foundations',
-          'focusAreas' => [
-            'C Programming Essentials',
-            'Python for Beginners',
-            'MySQL Mastery Bootcamp'
-          ],
-          'applications' => [
-            'Software Development Foundations',
-            'Data Processing & Automation',
-            'Backend and Database Systems'
-          ],
-          'outcome' => 'Develops strong algorithmic thinking, problem-solving ability, and database fundamentals essential for advanced technology domains.',
-          'icon' => 'code-slash',
-          'color' => 'orange'
-        ],
-        [
-          'title' => 'Data & Artificial Intelligence',
-          'focusAreas' => [
-            'Data Analytics with Excel, SQL, Python & Power BI',
-            'Practical Machine Learning & Deep Learning Bootcamp',
-            'Generative AI Bootcamp',
-            'AI in Content Creation',
-            'AI in Film Making'
-          ],
-          'applications' => [
-            'Predictive Analytics',
-            'Intelligent Decision Systems',
-            'Content & Media Automation',
-            'Data-Driven Business Solutions'
-          ],
-          'outcome' => 'Enables learners to design, build, and deploy AI-powered solutions using real-world data and industry tools.',
-          'icon' => 'brain',
-          'color' => 'purple'
-        ],
-        [
-          'title' => 'AI Mastery Program (Flagship)',
-          'focusAreas' => [
-            'Machine Learning & Deep Learning',
-            'Computer Vision',
-            'Natural Language Processing (NLP)',
-            'Generative AI & Foundation Models',
-            'Reinforcement Learning',
-            'Edge AI',
-            'AI integration with Robotics, XR & Digital Twin applications'
-          ],
-          'applications' => [
-            'Advanced AI Systems',
-            'Intelligent Automation',
-            'Robotics & Autonomous Systems',
-            'XR-based Intelligent Applications',
-            'Research & Product Development'
-          ],
-          'outcome' => 'Prepares learners for advanced AI roles, research pathways, and real-world industry deployment.',
-          'icon' => 'stars',
-          'color' => 'cyan'
-        ],
-        [
-          'title' => 'Robotics & Embedded Systems',
-          'focusAreas' => [
-            'Arduino Robot Maker',
-            'Circuit Simulation & Design',
-            'Mastering Arduino (Beginner to Pro)',
-            'AVR Bare-Metal Programming',
-            'ARM Register-Level Programming & Driver Development',
-            'Mastering RTOS',
-            'Mastering IoT from Scratch',
-            'IoT & Edge AI Workshop',
-            'Raspberry Pi Mastery'
-          ],
-          'applications' => [
-            'Embedded Product Development',
-            'IoT Systems & Smart Devices',
-            'Automation & Control Systems',
-            'Edge AI Solutions'
-          ],
-          'outcome' => 'Builds industry-relevant skills in embedded systems, automation, and connected intelligent devices.',
-          'icon' => 'cpu',
-          'color' => 'orange'
-        ],
-        [
-          'title' => 'Advanced & Specialized Workshops',
-          'focusAreas' => [
-            'Robotic Manipulator Workshop with ROS2',
-            'Unitree GO2 Hands-on Workshop with ROS2',
-            'Python Django Development Workshop',
-            'STEM Trainer Certification'
-          ],
-          'applications' => [
-            'Advanced Research & Prototyping',
-            'Industrial Deployment',
-            'Technical Training & Certification'
-          ],
-          'outcome' => 'Prepares participants for advanced research, industrial deployment, and professional training roles.',
-          'icon' => 'gear',
-          'color' => 'purple'
-        ],
-      ];
-      
-      foreach ($allPrograms as $program):
-      ?>
-      <div class="col-lg-6 col-xl-4" data-animate>
-        <div class="glass-card program-detail-card p-4 h-100">
-          <div class="program-icon-large mb-3">
-            <i class="bi bi-<?php echo $program['icon']; ?>" style="font-size: 2.5rem; color: var(--<?php echo $program['color']; ?>);"></i>
-          </div>
-          <h4 class="program-detail-title mb-3"><?php echo $program['title']; ?></h4>
-          
-          <div class="program-section mb-3">
-            <h6 class="program-section-title">Programmes / Focus Areas</h6>
-            <ul class="program-list">
-              <?php foreach ($program['focusAreas'] as $area): ?>
-              <li><?php echo $area; ?></li>
-              <?php endforeach; ?>
-            </ul>
-          </div>
-          
-          <div class="program-section mb-3">
-            <h6 class="program-section-title">Applications</h6>
-            <ul class="program-list">
-              <?php foreach ($program['applications'] as $app): ?>
-              <li><?php echo $app; ?></li>
-              <?php endforeach; ?>
-            </ul>
-          </div>
-          
-          <div class="program-section mb-4">
-            <h6 class="program-section-title">Outcome</h6>
-            <p class="program-outcome"><?php echo $program['outcome']; ?></p>
-          </div>
-          
-          <a href="register" class="btn-primary w-100 mt-auto">Register Now</a>
-        </div>
+include 'includes/header.php'; 
+?>
+
+<!-- Hero Section - flat (no 3D panels) -->
+<section class="hero-programs">
+  <div class="hero-programs-bg"></div>
+  <div class="hero-programs-content">
+    <div class="hero-programs-headline">
+      <h1 class="hero-3d-title">Programmes <span class="hero-3d-gradient">Offered</span></h1>
+      <p class="hero-3d-subtitle">All programmes follow a <strong>Learn – Build – Deploy</strong> approach, combining conceptual understanding with hands-on practice and real-world application.</p>
+      <div class="hero-3d-cta-wrap">
+        <a href="#programmes-list" class="hero-3d-cta">View Programmes <i class="bi bi-arrow-right"></i></a>
       </div>
-      <?php endforeach; ?>
+    </div>
+    <div class="hero-3d-stats">
+      <div class="hero-3d-stat"><span class="hero-3d-stat-val">5,000+</span> STUDENTS</div>
+      <div class="hero-3d-stat"><span class="hero-3d-stat-val">25+</span> PROGRAMS</div>
+      <div class="hero-3d-stat"><span class="hero-3d-stat-val">50+</span> MENTORS</div>
+    </div>
+  </div>
+  <div class="hero-3d-scroll">
+    <div class="hero-3d-scroll-dot"></div>
+  </div>
+</section>
+
+<div class="page-dark-sections" id="programmes-list">
+<?php
+$renderProgramCard = function ($program) {
+  $regStart = $program['reg_start_date'] ?? null;
+  $regEnd = $program['reg_end_date'] ?? null;
+  $progStart = $program['program_start_date'] ?? null;
+  $progEnd = $program['program_end_date'] ?? null;
+  $programDays = calculateProgramDays($progStart, $progEnd);
+  ?>
+  <div class="col-lg-6" data-animate>
+    <div class="glass-card program-detail-card p-4 h-100 d-flex flex-column">
+      <div class="mb-3"><?php echo getProgramStatusBadge($program); ?></div>
+      <h4 class="program-detail-title mb-4"><?php echo htmlspecialchars($program['program_name']); ?></h4>
+      <div class="program-info mb-4">
+        <?php if ($regStart && $regEnd): ?>
+        <div class="mb-3">
+          <div class="d-flex align-items-center mb-1">
+            <i class="bi bi-calendar-event me-2 text-primary"></i>
+            <strong class="text-muted small">Registration Period:</strong>
+          </div>
+          <div class="ms-4 program-info-values">
+            <span class="program-info-value"><?php echo date('M d, Y', strtotime($regStart)); ?></span>
+            <span class="program-date-sep"> – </span>
+            <span class="program-info-value"><?php echo date('M d, Y', strtotime($regEnd)); ?></span>
+          </div>
+        </div>
+        <?php endif; ?>
+        <?php if ($progStart && $progEnd): ?>
+        <div class="mb-3">
+          <div class="d-flex align-items-center mb-1">
+            <i class="bi bi-calendar-check me-2 text-success"></i>
+            <strong class="text-muted small">Course Period:</strong>
+          </div>
+          <div class="ms-4 program-info-values">
+            <span class="program-info-value"><?php echo date('M d, Y', strtotime($progStart)); ?></span>
+            <span class="program-date-sep"> – </span>
+            <span class="program-info-value"><?php echo date('M d, Y', strtotime($progEnd)); ?></span>
+          </div>
+        </div>
+        <?php endif; ?>
+        <?php if ($programDays): ?>
+        <div class="mb-3">
+          <div class="d-flex align-items-center mb-1">
+            <i class="bi bi-clock me-2 text-info"></i>
+            <strong class="text-muted small">Duration:</strong>
+          </div>
+          <div class="ms-4">
+            <span class="program-info-value fw-bold"><?php echo $programDays; ?> <?php echo $programDays == 1 ? 'Day' : 'Days'; ?></span>
+          </div>
+        </div>
+        <?php endif; ?>
+      </div>
+      <a href="program_details.php?id=<?php echo $program['id']; ?>" class="btn-primary w-100 mt-auto" style="flex-shrink: 0; text-decoration: none; display: inline-block; text-align: center;">
+        View More <i class="bi bi-arrow-right ms-2"></i>
+      </a>
+    </div>
+  </div>
+  <?php
+};
+?>
+
+<!-- Registration Open Programs -->
+<?php if (!empty($categorizedPrograms['registration_open'])): ?>
+<section class="programs-section-fullscreen position-relative page-dark-section">
+  <div class="section-container section-container-wide">
+    <div class="text-center mb-5 programs-section-header-stack" data-animate>
+      <span class="badge badge-purple mb-3"><i class="bi bi-calendar-check me-2"></i>Registration Open</span>
+      <h2 class="display-4 fw-bold mb-3">
+        <span class="gradient-text-purple">Register Now</span>
+      </h2>
+      <p class="text-muted fs-5 mx-auto" style="max-width: 600px;">Don't miss out! Registration is currently open for these programs.</p>
+    </div>
+    <div class="row g-4">
+      <?php foreach ($categorizedPrograms['registration_open'] as $program) $renderProgramCard($program); ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<!-- Ongoing Programs -->
+<?php if (!empty($categorizedPrograms['ongoing'])): ?>
+<section class="programs-section-fullscreen position-relative page-dark-section">
+  <div class="section-container section-container-wide">
+    <div class="text-center mb-5 programs-section-header-stack" data-animate>
+      <span class="badge badge-purple mb-3"><i class="bi bi-play-circle me-2"></i>Currently Running</span>
+      <h2 class="display-4 fw-bold mb-3">
+        <span class="gradient-text-purple">Ongoing Programs</span>
+      </h2>
+      <p class="text-muted fs-5 mx-auto" style="max-width: 600px;">Programs currently in progress.</p>
+    </div>
+    <div class="row g-4">
+      <?php foreach ($categorizedPrograms['ongoing'] as $program) $renderProgramCard($program); ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<!-- Upcoming Programs -->
+<?php 
+$upcomingAll = array_merge($categorizedPrograms['upcoming'], $categorizedPrograms['upcoming_program']);
+if (!empty($upcomingAll)): 
+?>
+<section class="programs-section-fullscreen position-relative page-dark-section">
+  <div class="section-container section-container-wide">
+    <div class="text-center mb-5 programs-section-header-stack" data-animate>
+      <span class="badge badge-purple mb-3"><i class="bi bi-calendar-event me-2"></i>Coming Soon</span>
+      <h2 class="display-4 fw-bold mb-3">
+        <span class="gradient-text-purple">Upcoming Programs</span>
+      </h2>
+      <p class="text-muted fs-5 mx-auto" style="max-width: 600px;">Programs starting soon. Stay tuned!</p>
+    </div>
+    <div class="row g-4">
+      <?php foreach ($upcomingAll as $program) $renderProgramCard($program); ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<!-- All Programs Grid (fallback when nothing categorized) -->
+<?php if (empty($categorizedPrograms['registration_open']) && empty($categorizedPrograms['ongoing']) && empty($upcomingAll) && !empty($allPrograms)): ?>
+<section class="programs-section-fullscreen position-relative page-dark-section">
+  <div class="section-container section-container-wide">
+    <div class="text-center mb-5" data-animate>
+      <span class="badge badge-purple mb-3">Our Programs</span>
+      <h2 class="display-4 fw-bold mb-3">
+        Programmes <span class="gradient-text-purple">Offered</span>
+      </h2>
+    </div>
+    <div class="row g-4">
+      <?php foreach ($allPrograms as $program) $renderProgramCard($program); ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<?php if (empty($allPrograms)): ?>
+<section class="programs-section-fullscreen position-relative page-dark-section">
+  <div class="section-container section-container-wide">
+    <div class="text-center py-5">
+      <i class="bi bi-book program-empty-icon"></i>
+      <p class="program-empty-text mt-3">No programs available at the moment. Check back soon!</p>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
+<!-- CTA Section (same as index) -->
+<section class="cta-section position-relative page-dark-section">
+  <div class="section-container">
+    <div class="text-center" data-animate>
+      <h2 class="display-3 fw-bold mb-3">Ready to Start <span class="gradient-text">Your Journey?</span></h2>
+      <p class="text-muted fs-5 mb-5 mx-auto" style="max-width: 700px;">
+        Join our community of young innovators and take the first step towards becoming a tech leader of tomorrow.
+      </p>
+      <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+        <a href="register" class="btn-primary">
+          Register Now <i class="bi bi-arrow-right ms-2"></i>
+        </a>
+        <a href="enquiry" class="btn-secondary">Enquiry</a>
+      </div>
     </div>
   </div>
 </section>
 
+</div><!-- .page-dark-sections -->
 
 <?php include 'includes/footer.php'; ?>

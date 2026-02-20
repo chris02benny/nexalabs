@@ -1,345 +1,153 @@
 <?php include 'includes/header.php'; ?>
 
-<!-- Hero Section -->
-<section class="py-5 grid-bg" style="padding: 6rem 0 4rem;">
-  <div class="section-container">
-    <div class="text-center mx-auto slide-in-left" style="max-width: 800px;">
-      <span class="badge badge-purple mb-4">
-        🌟 About Us
-      </span>
-      
-      <h1 class="display-3 fw-bold mb-4">
-        Shaping the <span class="gradient-text">Future</span> of Tech Education
-      </h1>
-      
-      <p class="text-muted fs-5">
-        A collaboration between global STEM education leaders and academic excellence.
-      </p>
+<!-- Hero -->
+<section class="about-hero">
+  <div class="about-hero-bg">
+    <div class="about-hero-particles"></div>
+    <div class="about-hero-glow about-hero-glow-1"></div>
+    <div class="about-hero-glow about-hero-glow-2"></div>
+    <div class="about-hero-grid"></div>
+  </div>
+  <div class="about-hero-content">
+    <span class="badge badge-purple mb-3">About Us</span>
+    <h1 class="about-hero-title">Shaping the <span class="hero-3d-gradient">Future</span> of Tech Education</h1>
+    <p class="about-hero-subtitle">A collaboration between global STEM education leaders and academic excellence.</p>
+    <div class="about-hero-meta">
+      <span><i class="bi bi-geo-alt-fill"></i> India · UAE · Middle East</span>
+      <span><i class="bi bi-award-fill"></i> Industry-Aligned Learning</span>
     </div>
   </div>
 </section>
 
-<!-- Tabbed Content Section -->
-<section class="py-5" style="padding: 3rem 0 5rem;">
-  <div class="section-container">
-    <!-- Tab Navigation -->
-    <div class="tab-navigation mb-5" data-animate>
-      <div class="d-flex justify-content-center gap-3 flex-wrap">
-        <button class="tab-btn active" onclick="switchTab('uwr')" id="tab-uwr">
-          <i class="bi bi-robot me-2"></i>
-          About Unique World Robotics
-        </button>
-        <button class="tab-btn" onclick="switchTab('ajce')" id="tab-ajce">
-          <i class="bi bi-mortarboard me-2"></i>
-          About Amal Jyothi College of Engineering
-        </button>
+<div class="page-dark-sections">
+  <!-- Mission -->
+  <section class="about-mission page-dark-section">
+    <div class="section-container">
+      <div class="about-mission-card">
+        <div class="about-mission-glow"></div>
+        <div class="about-mission-inner">
+          <div class="about-mission-icon"><i class="bi bi-bullseye"></i></div>
+          <h2 class="about-mission-title">Our Mission</h2>
+          <p class="about-mission-text">Building socially responsible, future-ready learners through innovation-driven education—where academic rigor meets hands-on practice and real-world deployment.</p>
+        </div>
       </div>
     </div>
+  </section>
 
-    <!-- Tab Content -->
-    <div class="tab-content-wrapper">
-      <!-- Unique World Robotics Tab -->
-      <div class="tab-content active" id="content-uwr">
-        <div class="glass-card no-hover p-5" data-animate>
-          <div class="row align-items-center mb-4">
-            <div class="col-md-2 text-center mb-3 mb-md-0">
-              <div class="program-icon mx-auto" style="width: 80px; height: 80px; background: linear-gradient(135deg, hsla(190, 100%, 50%, 0.2), hsla(270, 80%, 60%, 0.2));">
-                <i class="bi bi-robot" style="font-size: 2.5rem; color: var(--cyan);"></i>
+  <!-- Partners: UWR + AJCE -->
+  <section class="about-partners page-dark-section">
+    <div class="section-container">
+      <div class="text-center mb-5" data-animate>
+        <span class="badge badge-purple mb-3">Our Partners</span>
+        <h2 class="about-section-heading">Global Leaders in <span class="gradient-text-purple">STEM & Engineering</span></h2>
+        <p class="about-section-lead">Two institutions driving the next generation of tech education.</p>
+      </div>
+      <div class="row g-4 about-partners-row">
+        <div class="col-lg-6" data-animate>
+          <div class="about-partner-card about-partner-uwr">
+            <div class="about-partner-header">
+              <div class="about-partner-icon"><i class="bi bi-robot"></i></div>
+              <div>
+                <h3 class="about-partner-name">Unique World Robotics</h3>
+                <p class="about-partner-meta"><i class="bi bi-geo-alt"></i> Founded 2019 · Dubai</p>
               </div>
             </div>
-            <div class="col-md-10">
-              <h2 class="h3 fw-bold mb-2">Unique World Robotics</h2>
-              <p class="text-muted mb-0"><i class="bi bi-geo-alt me-2"></i>Founded 2019 • Headquartered in Dubai</p>
-            </div>
-          </div>
-
-          <div class="content-section">
-            <p class="lead mb-4">
-              Founded in 2019 and headquartered in Dubai, Unique World Robotics is a global leader in STEM education, robotics, and emerging technology training, with active operations across India, the UAE, and the Middle East.
-            </p>
-
-            <div class="row g-4 mb-4">
-              <div class="col-md-6">
-                <div class="feature-box p-4 rounded-3" style="background: hsla(190, 100%, 50%, 0.05); border-left: 4px solid var(--cyan);">
-                  <h5 class="fw-bold mb-2"><i class="bi bi-bullseye me-2 text-primary"></i>Our Focus</h5>
-                  <p class="text-muted mb-0">Building socially responsible, future-ready learners through innovation-driven education.</p>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="feature-box p-4 rounded-3" style="background: hsla(270, 80%, 60%, 0.05); border-left: 4px solid var(--purple);">
-                  <h5 class="fw-bold mb-2"><i class="bi bi-globe me-2 text-purple"></i>Global Reach</h5>
-                  <p class="text-muted mb-0">Active operations across India, UAE, and the Middle East region.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="highlight-section p-4 rounded-3 mb-4" style="background: linear-gradient(135deg, hsla(250, 60%, 96%, 0.8), hsla(240, 50%, 94%, 0.8)); border: 1px solid hsla(270, 80%, 60%, 0.2);">
-              <h5 class="fw-bold mb-3"><i class="bi bi-star-fill me-2" style="color: var(--orange);"></i>Recent Highlight</h5>
-              <p class="mb-3">
-                Unique World Robotics was recently in the news for hosting renowned <strong>NASA astronaut Sunita Williams</strong> during her visit to India. As part of the engagement, the organisation interacted with Williams to promote robotics, AI, and STEM education, inspiring students to pursue careers in science and technology.
-              </p>
-              <p class="text-muted mb-0">
-                <i class="bi bi-lightbulb me-2"></i>
-                The visit highlighted the growing role of Indian robotics initiatives in connecting global space achievements with grassroots innovation and learning.
-              </p>
-            </div>
-
-            <div class="row g-3">
-              <div class="col-md-4">
-                <div class="stat-box text-center p-3 rounded-3" style="background: hsla(190, 100%, 50%, 0.1);">
-                  <h4 class="fw-bold gradient-text mb-1">2019</h4>
-                  <p class="text-muted small mb-0">Year Founded</p>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="stat-box text-center p-3 rounded-3" style="background: hsla(270, 80%, 60%, 0.1);">
-                  <h4 class="fw-bold gradient-text mb-1">3+</h4>
-                  <p class="text-muted small mb-0">Countries</p>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="stat-box text-center p-3 rounded-3" style="background: hsla(24, 100%, 60%, 0.1);">
-                  <h4 class="fw-bold gradient-text mb-1">STEM</h4>
-                  <p class="text-muted small mb-0">Education Focus</p>
-                </div>
-              </div>
+            <p class="about-partner-desc">Global leader in STEM education, robotics, and emerging technology training across India, UAE, and the Middle East.</p>
+            <ul class="about-partner-tags">
+              <li>STEM</li>
+              <li>Robotics</li>
+              <li>AI</li>
+              <li>Global Reach</li>
+            </ul>
+            <div class="about-partner-highlight">
+              <i class="bi bi-star-fill"></i>
+              <span>Hosted <strong>NASA astronaut Sunita Williams</strong> in India to promote robotics, AI & STEM education.</span>
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Amal Jyothi College Tab -->
-      <div class="tab-content" id="content-ajce">
-        <div class="glass-card no-hover p-5" data-animate>
-          <div class="row align-items-center mb-4">
-            <div class="col-md-2 text-center mb-3 mb-md-0">
-              <div class="program-icon mx-auto" style="width: 80px; height: 80px; background: linear-gradient(135deg, hsla(24, 100%, 60%, 0.2), hsla(270, 80%, 60%, 0.2));">
-                <i class="bi bi-mortarboard" style="font-size: 2.5rem; color: var(--orange);"></i>
+        <div class="col-lg-6" data-animate>
+          <div class="about-partner-card about-partner-ajce">
+            <div class="about-partner-header">
+              <div class="about-partner-icon about-partner-icon-orange"><i class="bi bi-mortarboard"></i></div>
+              <div>
+                <h3 class="about-partner-name">Amal Jyothi College of Engineering</h3>
+                <p class="about-partner-meta"><i class="bi bi-geo-alt"></i> Kerala, India · NAAC A+</p>
               </div>
             </div>
-            <div class="col-md-10">
-              <h2 class="h3 fw-bold mb-2">Amal Jyothi College of Engineering</h2>
-              <p class="text-muted mb-0"><i class="bi bi-geo-alt me-2"></i>Kerala, India • NAAC A+ Accredited</p>
-            </div>
-          </div>
-
-          <div class="content-section">
-            <p class="lead mb-4">
-              Amal Jyothi College of Engineering (AJCE) is an autonomous institution in Kerala, accredited with NAAC A+ and NBA, and approved by AICTE (affiliated to KTU). Set on one of the largest and most vibrant engineering campuses in the state, AJCE offers a learning environment where academic rigor meets innovation and real-world relevance.
-            </p>
-
-            <div class="mb-4">
-              <h5 class="fw-bold mb-3"><i class="bi bi-lightbulb-fill me-2 text-primary"></i>Future-Ready Education</h5>
-              <p class="text-muted">
-                The college emphasizes future-ready education through interdisciplinary curricula, <strong>35+ B.Tech Major–Minor combinations</strong>, and hands-on exposure in emerging domains such as:
-              </p>
-              <div class="row g-2 mb-3">
-                <div class="col-md-6">
-                  <div class="d-flex align-items-center p-2 rounded" style="background: hsla(190, 100%, 50%, 0.05);">
-                    <i class="bi bi-check-circle-fill me-2 text-primary"></i>
-                    <span>Artificial Intelligence</span>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="d-flex align-items-center p-2 rounded" style="background: hsla(190, 100%, 50%, 0.05);">
-                    <i class="bi bi-check-circle-fill me-2 text-primary"></i>
-                    <span>Data Science</span>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="d-flex align-items-center p-2 rounded" style="background: hsla(270, 80%, 60%, 0.05);">
-                    <i class="bi bi-check-circle-fill me-2 text-purple"></i>
-                    <span>Cyber Security</span>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="d-flex align-items-center p-2 rounded" style="background: hsla(270, 80%, 60%, 0.05);">
-                    <i class="bi bi-check-circle-fill me-2 text-purple"></i>
-                    <span>Electric Vehicles</span>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="d-flex align-items-center p-2 rounded" style="background: hsla(24, 100%, 60%, 0.05);">
-                    <i class="bi bi-check-circle-fill me-2 text-secondary"></i>
-                    <span>Advanced Electronics</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="highlight-section p-4 rounded-3 mb-4" style="background: linear-gradient(135deg, hsla(250, 60%, 96%, 0.8), hsla(240, 50%, 94%, 0.8)); border: 1px solid hsla(270, 80%, 60%, 0.2);">
-              <h5 class="fw-bold mb-3"><i class="bi bi-rocket-takeoff me-2" style="color: var(--orange);"></i>Innovation Ecosystem</h5>
-              <p class="mb-2">
-                A strong innovation ecosystem—powered by:
-              </p>
-              <ul class="mb-0">
-                <li><strong>Startups Valley</strong> - Entrepreneurship incubation</li>
-                <li><strong>AICTE IDEA Lab</strong> - Innovation and development</li>
-                <li><strong>NEXA Future-Ready Labs</strong> - Cutting-edge technology training</li>
-              </ul>
-              <p class="text-muted mt-3 mb-0">
-                <i class="bi bi-arrow-right-circle me-2"></i>
-                Enables students to transform ideas into impactful solutions.
-              </p>
-            </div>
-
-            <div class="mb-4">
-              <h5 class="fw-bold mb-3"><i class="bi bi-trophy-fill me-2" style="color: var(--orange);"></i>Programs Offered</h5>
-              <div class="d-flex flex-wrap gap-2">
-                <span class="badge badge-cyan">B.Tech</span>
-                <span class="badge badge-purple">M.Tech</span>
-                <span class="badge badge-orange">BBA</span>
-                <span class="badge badge-cyan">BCA</span>
-                <span class="badge badge-purple">MCA</span>
-                <span class="badge badge-orange">PhD</span>
-              </div>
-            </div>
-
-            <div class="text-center p-4 rounded-3" style="background: hsla(190, 100%, 50%, 0.05);">
-              <p class="mb-2 fw-semibold">Learn More</p>
-              <a href="https://www.ajce.in" target="_blank" class="btn btn-primary">
-                <i class="bi bi-globe me-2"></i>Visit www.ajce.in
-              </a>
-            </div>
+            <p class="about-partner-desc">Autonomous institution with NAAC A+, NBA, AICTE approval. One of the largest engineering campuses in Kerala—academic rigor meets innovation.</p>
+            <ul class="about-partner-tags">
+              <li>35+ B.Tech Major–Minor</li>
+              <li>Startups Valley</li>
+              <li>AICTE IDEA Lab</li>
+              <li>NEXA Labs</li>
+            </ul>
+            <a href="https://www.ajce.in" target="_blank" rel="noopener" class="about-partner-cta">
+              Visit www.ajce.in <i class="bi bi-arrow-up-right"></i>
+            </a>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<style>
-/* Tab Navigation Styles */
-.tab-navigation {
-  position: relative;
-}
+  <!-- Spotlight -->
+  <section class="about-spotlight page-dark-section">
+    <div class="section-container">
+      <div class="about-spotlight-card">
+        <div class="about-spotlight-border"></div>
+        <div class="row align-items-center g-4">
+          <div class="col-md-2 text-center">
+            <div class="about-spotlight-icon"><i class="bi bi-rocket-takeoff-fill"></i></div>
+          </div>
+          <div class="col-md-10">
+            <span class="badge badge-purple mb-2">Spotlight</span>
+            <h3 class="about-spotlight-title">NASA Astronaut Sunita Williams × UWR</h3>
+            <p class="about-spotlight-text">Unique World Robotics hosted renowned NASA astronaut Sunita Williams during her visit to India, engaging with students to promote robotics, AI, and STEM education—connecting global space achievement with grassroots innovation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-.tab-btn {
-  padding: 1rem 2rem;
-  border: 2px solid hsla(270, 80%, 60%, 0.2);
-  background: var(--glass-bg);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: 9999px;
-  font-weight: 600;
-  color: var(--muted-foreground);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 1rem;
-  white-space: nowrap;
-}
+  <!-- Stats -->
+  <section class="about-stats page-dark-section">
+    <div class="section-container">
+      <div class="row g-4">
+        <div class="col-md-4" data-animate>
+          <div class="about-stat-card">
+            <span class="about-stat-value gradient-text-purple">2019</span>
+            <span class="about-stat-label">UWR Founded</span>
+          </div>
+        </div>
+        <div class="col-md-4" data-animate>
+          <div class="about-stat-card">
+            <span class="about-stat-value gradient-text-purple">3+</span>
+            <span class="about-stat-label">Countries</span>
+          </div>
+        </div>
+        <div class="col-md-4" data-animate>
+          <div class="about-stat-card">
+            <span class="about-stat-value gradient-text-purple">STEM</span>
+            <span class="about-stat-label">Education Focus</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-.tab-btn:hover {
-  border-color: var(--purple);
-  color: var(--purple);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px hsla(270, 80%, 60%, 0.15);
-}
-
-.tab-btn.active {
-  background: linear-gradient(135deg, hsl(250, 70%, 55%) 0%, hsl(270, 80%, 60%) 100%);
-  border-color: transparent;
-  color: white;
-  box-shadow: 0 4px 14px hsla(250, 70%, 55%, 0.3);
-}
-
-.tab-btn i {
-  font-size: 1.1rem;
-}
-
-/* Tab Content Styles */
-.tab-content-wrapper {
-  position: relative;
-  min-height: 600px;
-}
-
-.tab-content {
-  display: none;
-  opacity: 0;
-  animation: fadeInContent 0.5s ease-out forwards;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-@keyframes fadeInContent {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Feature Box Styles */
-.feature-box {
-  transition: all 0.3s ease;
-}
-
-.feature-box:hover {
-  transform: translateX(5px);
-}
-
-.highlight-section {
-  transition: all 0.3s ease;
-}
-
-.highlight-section:hover {
-  box-shadow: 0 8px 24px hsla(270, 80%, 60%, 0.15);
-}
-
-.stat-box {
-  transition: all 0.3s ease;
-}
-
-.stat-box:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 12px hsla(0, 0%, 0%, 0.1);
-}
-
-.text-purple {
-  color: var(--purple);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .tab-btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.9rem;
-  }
-  
-  .tab-btn i {
-    font-size: 1rem;
-  }
-  
-  .program-icon {
-    width: 60px !important;
-    height: 60px !important;
-  }
-  
-  .program-icon i {
-    font-size: 2rem !important;
-  }
-}
-</style>
-
-<script>
-function switchTab(tabName) {
-  // Remove active class from all tabs and content
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
-  document.querySelectorAll('.tab-content').forEach(content => {
-    content.classList.remove('active');
-  });
-  
-  // Add active class to selected tab and content
-  document.getElementById('tab-' + tabName).classList.add('active');
-  document.getElementById('content-' + tabName).classList.add('active');
-}
-</script>
+  <!-- CTA -->
+  <section class="about-cta page-dark-section cta-section">
+    <div class="section-container">
+      <div class="text-center" data-animate>
+        <h2 class="display-5 fw-bold mb-3">Ready to <span class="gradient-text">Start Your Journey?</span></h2>
+        <p class="text-muted fs-5 mb-4 mx-auto" style="max-width: 560px;">Join our community of innovators and build skills for tomorrow.</p>
+        <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+          <a href="programs" class="btn-primary">Explore Programs <i class="bi bi-arrow-right ms-2"></i></a>
+          <a href="enquiry" class="btn-secondary">Enquiry</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 
 <?php include 'includes/footer.php'; ?>
